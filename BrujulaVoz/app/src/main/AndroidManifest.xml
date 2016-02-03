@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="practica3.npi.brujulavoz">
 
-    <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
+    <!-- <uses-permission android:name="android.permission.RECORD_AUDIO"/> -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -21,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BrujulaActivity"
+            android:label="@string/title_activity_brujula"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -12,20 +12,27 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int RECOGNIZER_RESULT = 1234;
+    private static final int RECONOCIMIENTO_VOZ = 1001;
+    public final static String EXTRA_MESSAGE = "practica3.npi.brujulavoz.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // que es esto
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // ¿queremos la action bar?
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,20 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
-
-        Button startSpeech = (Button)findViewById(R.id.getSpeechButton);
-        startSpeech.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speech to text");
-                startActivityForResult(intent, RECOGNIZER_RESULT);
-            }
-
         });
     }
 
@@ -72,17 +65,39 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void iniciarReconocimientoVoz(View view) {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Habla");
+        startActivityForResult(intent, RECONOCIMIENTO_VOZ);
+    }
+
     /**
      * Handle the results from the recognition activity.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RECOGNIZER_RESULT && resultCode == RESULT_OK) {
+        if (requestCode == RECONOCIMIENTO_VOZ && resultCode == RESULT_OK) {
             ArrayList<String> matches = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
 
-            TextView speechText = (TextView)findViewById(R.id.speechText);
-            speechText.setText(matches.get(0).toString());
+            TextView textView = (TextView) findViewById(R.id.mensaje_reconocido);
+            textView.setText(matches.get(0).toString());
+
+            if (matches.get(0).toString().equals("life")) {
+                System.out.println("YESSS");
+/*                TextView textView2 = new TextView(this);
+                textView2.setTextSize(40);
+                textView2.setText(matches.get(0).toString());
+                LinearLayout layout = (LinearLayout) findViewById(R.id.content);
+                layout.addView(textView2);*/
+
+                Intent intent = new Intent(this, BrujulaActivity.class);
+                String message = matches.get(0).toString();
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
