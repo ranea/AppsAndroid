@@ -28,10 +28,24 @@ http://indragni.com/blog/2015/09/20/how-to-do-speech-recognition-in-android/
 
 # Enlaces brujula
 
-http://www.codeproject.com/Articles/1000120/Android-Compass
+NUP http://www.codeproject.com/Articles/1000120/Android-Compass
 
 http://agamboadev.esy.es/como-crear-un-brujula-en-android/
 
 http://www.techrepublic.com/article/pro-tip-create-your-own-magnetic-compass-using-androids-internal-sensors/
 
-http://www.javacodegeeks.com/2013/09/android-compass-code-example.html
+NUP http://www.javacodegeeks.com/2013/09/android-compass-code-example.html
+
+# Enlaces brujula v2
+
+http://stackoverflow.com/questions/15074905/sensor-activity-in-android
+
+http://developer.android.com/intl/es/reference/android/hardware/SensorManager.html
+
+http://developer.android.com/intl/es/guide/topics/sensors/sensors_position.html
+
+http://developer.android.com/intl/es/guide/topics/sensors/sensors_overview.html
+
+http://stackoverflow.com/questions/1309629/how-to-change-colors-of-a-drawable-in-android
+
+http://developer.android.com/intl/es/reference/android/view/animation/RotateAnimation.html
