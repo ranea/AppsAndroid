@@ -40,18 +40,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent2 = new Intent(this, NavegacionActivity.class);
-        intent2.putExtra(EXTRA_MESSAGE, "XX");
-        startActivity(intent2);
-
         // create Intent to take a picture and return control to the calling application
-        //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
         //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
         // start the image capture Intent
-        //startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
         Button btn = (Button) findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +71,14 @@ public class MainActivity extends AppCompatActivity {
 
                 Frame frame = new Frame.Builder().setBitmap(myBitmap).build();
                 SparseArray<Barcode> barcodes = detector.detect(frame);
+                // TODO detectar si se ha leido un barcodeee
+
 
                 Barcode thisCode = barcodes.valueAt(0);
                 txtView.setText(thisCode.rawValue);
+
+                Toast.makeText(MainActivity.this, thisCode.rawValue, Toast.LENGTH_LONG).show();
+                // TODO si no son coordenadas validas, REPETIR
 
                 // http://stackoverflow.com/questions/19464100/starting-intent-from-onclicklistener
                 Intent intent = new Intent(v.getContext(), NavegacionActivity.class);
@@ -135,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
-//                Toast.makeText(this, "Image saved to:\n" +
-//                        data.getData(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "Image saved to:\n" + data.getData(), Toast.LENGTH_LONG).show();
                 myBitmap = (Bitmap) data.getExtras().get("data");
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
