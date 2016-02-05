@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
                     case RESULT_OK:
                         // The user passed
                         Toast.makeText(this, "RESULT_OK", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(this, CameraActivity.class);
+                        startActivity(intent);
                         break;
                     case RESULT_CANCELED:
                         // The user cancelled the task
