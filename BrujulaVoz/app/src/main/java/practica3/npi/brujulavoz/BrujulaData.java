@@ -1,108 +1,167 @@
 package practica3.npi.brujulavoz;
 
-import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.hardware.SensorEventListener;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 
+/*
+ * Clase que maneja los sensores acelerómetro y magnetómetro.
+ * Estos datos son usados para realizar la brújula.
+ */
 public class BrujulaData implements SensorEventListener {
+    private final SensorManager sensorManager;
+    private final Sensor acelerometro;
+    private final Sensor magnetometro;
+    private final BrujulaActivity brujulaActivity;
 
-    private final SensorManager mSensorManager;
-    private final Sensor mAccelerometer;
-    private final Sensor mMagnetometer;
-    private final BrujulaActivity ba;
-    private final String message;
+    private float[] datosAcelerometro;
+    private float[] datosMagnetrometro;
+    private float[] matrizRotacion;
+    private float[] orientacion;
+    private float orientacionAnterior;
+    private float orientacionDada;
+    private int margenError;
 
-    private float[] mLastAccelerometer;
-    private float[] mLastMagnetometer;
-    private float[] mRotationMatrix;
-    private float[] mOrientation;
-    private float mCurrentDegree;
+    /*
+     * Inicializamos los valores que se le pasan en la actividad BrujulaActivity:
+     *  - sensorManager no se iniciliza aquí porque tiene que llamar a getSystemService(),
+     *    que esta disponible solo en el contexto (esto es, en la actividad BrujulaActivity)
+     *  - brujulaActivity es necesario para llamar a funciones que están definidas allí
+     */
+    public BrujulaData(SensorManager sensorManager, BrujulaActivity brujulaActivity, String mensaje) {
+        // Para poder utilizar los sensores, necesitamos antes un "sensorManager"
+        // que manejará los sensores.
+        this.sensorManager = sensorManager;
+        acelerometro = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        magnetometro = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        this.brujulaActivity = brujulaActivity;
 
-    public BrujulaData(SensorManager sm, BrujulaActivity ba, String message) {
-        // only getSystemService available in context
-        mSensorManager = sm;
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        this.ba = ba;
-        this.message = message;
+        datosAcelerometro = null;
+        datosMagnetrometro = null;
+        matrizRotacion = new float[9];
+        orientacion = new float[3];
+        orientacionAnterior = 0f;
 
-        mLastAccelerometer = null;
-        mLastMagnetometer = null;
-        mRotationMatrix = new float[9];
-        mOrientation = new float[3];
-        mCurrentDegree = 0f;
+        // TODO implementar calcularOrientacionDada()
+        orientacionDada = calcularOrientacionDada(mensaje);
+        margenError = calcularMargenError(mensaje);
     }
 
     protected void onResume() {
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+        // Registramos dos listeners para recibir datos de los sensores dentro del dispositivo
+        sensorManager.registerListener(this, acelerometro, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, magnetometro, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     protected void onPause() {
-        mSensorManager.unregisterListener(this);
+        // Una buena práctica es parar los sensores cuando la aplicación no está en primer plano
+        sensorManager.unregisterListener(this);
     }
 
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
-
-    public void onSensorChanged(SensorEvent event) {
-        // Here we call a method in BrujulaActivity and pass it the values from the SensorChanged event
-        // ba.setTextViewValue(event.values);
-
-        switch (event.sensor.getType()) {
+    // Esta función se ejecuta cada vez que el sensor cambia
+    public void onSensorChanged(SensorEvent evento) {
+        // Distinguimos el tipo de evento que se ha recibido (puede deberse al acelerómetro o al magnetómetro)
+        switch (evento.sensor.getType()) {
             case Sensor.TYPE_ACCELEROMETER:
-                mLastAccelerometer = event.values;
+                datosAcelerometro = evento.values;
                 break;
             case Sensor.TYPE_MAGNETIC_FIELD:
-                mLastMagnetometer = event.values;
+                datosMagnetrometro = evento.values;
                 break;
         }
 
-        if ((mLastAccelerometer != null) && (mLastMagnetometer != null)) {
-            SensorManager.getRotationMatrix(mRotationMatrix, null, mLastAccelerometer, mLastMagnetometer);
-            SensorManager.getOrientation(mRotationMatrix, mOrientation);
+        // Necesitamos datos de los dos sensores para crear la brújula
+        // Si no se han recibido datos de ambos, no hacemos nada
+        if ((datosAcelerometro != null) && (datosMagnetrometro != null)) {
+            /*
+             * Para calcular la orientación del dispositivo, calculamos el azimut:
+             * "ángulo formado entre la dirección de referencia (norte) y una línea entre
+             * el observador y un punto de interés previsto en el mismo plano que la dirección
+             * de referencia" - Wikipedia.
+             * Si el azimut es 0º, el dispositivo se encuentra orientado hacia el norte,
+             * 90º para el este, 180º para el sur y 270º para el oeste.
+             *
+             * Para calcular el azitmut, primero debemos calcular la matriz de rotación
+             * (con los datos del acelerómetro y magnetómetro) y después
+             * usando dicha matriz obtenemos un vector cuya 1ª componente es el azimut.
+             */
+            SensorManager.getRotationMatrix(matrizRotacion, null, datosAcelerometro, datosMagnetrometro);
+            SensorManager.getOrientation(matrizRotacion, orientacion);
+            float azimut = orientacion[0];
 
-            float azimuthInRadians = mOrientation[0];
-            float azimuthInDegress = (float)(Math.toDegrees(azimuthInRadians)+360)%360;
+            // Pasamos los azimut dados en radianes a grados
+            float orientacionDispositivo = (float)(Math.toDegrees(azimut)+360)%360;
 
-            ba.setTextViewValue(azimuthInDegress);
+            // Mostramos por pantalla la orientación
+            brujulaActivity.setTextViewValue(orientacionDispositivo);
 
-            // TODO usar el numero de precision
-
-            Boolean correctPosition = false;
-            if (message.equals("norte")) {
-                correctPosition = (0 <= azimuthInDegress && azimuthInDegress <= 5) || (355 <= azimuthInDegress && azimuthInDegress <= 360);
-            }
-            else if (message.equals("sur")) {
-                correctPosition = (175 <= azimuthInDegress && azimuthInDegress <= 185);
-                azimuthInDegress = (azimuthInDegress + 180)%360;
-            }
-            else if (message.equals("este")) {
-                correctPosition = (85 <= azimuthInDegress && azimuthInDegress <= 95);
-                azimuthInDegress = (azimuthInDegress - 90)%360;
-            }
-            else if (message.equals("oeste")) {
-                correctPosition = (265 <= azimuthInDegress && azimuthInDegress <= 275);
-                azimuthInDegress = (azimuthInDegress + 90)%360;
-            }
-
-            RotateAnimation ra = new RotateAnimation(
-                    mCurrentDegree,
-                    -azimuthInDegress,
+            /*
+             * Creamos una animación para que el puntero se mueva desde la orientación
+             * anterior del dispositivo a la actual. Para ello utilizamos RotateAnimation.
+             * Posteriormente en iniciarAnimacionPuntero() le aplicaremos
+             * dicha animacion a la imagen del puntero.
+             */
+            // TODO Lo siguiente es + o - (hay que probar)
+            // TODO Hay que ver si poner orientacionDada-orientacionDispositivo entre 0 y 360 o permitir numeros negativos
+            // TODO arreglar la inestabilidad de la flecha
+            RotateAnimation animacion = new RotateAnimation(
+                    orientacionAnterior,
+                    orientacionDada-orientacionDispositivo,
                     Animation.RELATIVE_TO_SELF, 0.5f,
                     Animation.RELATIVE_TO_SELF,
                     0.5f);
+            animacion.setDuration(250);
+            animacion.setFillAfter(true);
+            brujulaActivity.iniciarAnimacionPuntero(animacion, esOrientacionBuena(orientacionDispositivo));
 
-            ra.setDuration(250);
-            ra.setFillAfter(true);
-
-            ba.startAnimationPointer(ra, correctPosition);
-            mCurrentDegree = -azimuthInDegress;
+            // TODO porque esto es con menos?
+            orientacionAnterior = -orientacionDispositivo;
         }
+    }
+
+    /*
+     * Usando el mensaje reconocido por voz (será del tipo "norte diez")
+     * calculamos la orientación en grados que hace referencia:
+     *  - Norte: 0
+     *  - Este: 90
+     *  - Sur: 180
+     *  -
+     */
+    // TODO implementar (lo siguiente es una chapuza y ni esta completo)
+    protected float calcularOrientacionDada(String mensaje){
+        if (mensaje.startsWith("norte")) {
+            return 0;
+        }
+        else if(mensaje.startsWith("sur"))
+            return 180;
+        return 180;
+    }
+
+    /*
+     * Usando el mensaje reconocido por voz (será del tipo "norte diez")
+     * calculamos el margen de error que hace referencia, esto es,
+     * el número que se corresponde a la segunda palabra (en "norte diez", 10)
+     */
+    // TODO implementar
+    protected int calcularMargenError(String mensaje){
+        return 10;
+    }
+
+    /*
+     * Comprobamos si la orientación del dispositivo esta suficientemente cercana
+     * a la orientación dada por el usuario al principio de la aplicación.
+     * Para ello tenemos en cuenta el margen de error.
+     */
+    // TODO margen de error se refiere a esto o a quitar el /2?
+    protected boolean esOrientacionBuena(float orientacionDispositivo){
+        return orientacionDada - margenError/2 <= orientacionDispositivo &&
+                orientacionDispositivo <= orientacionDada - margenError/2;
+    }
+
+    // Esta función necesita estar definida aunque no es necesario implementarla en nuestro caso
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 }
