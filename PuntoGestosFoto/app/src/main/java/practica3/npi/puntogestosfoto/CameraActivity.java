@@ -66,6 +66,7 @@ public class CameraActivity extends AppCompatActivity {
                 Toast.makeText(CameraActivity.this, "Imagen guardada en: " + path, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(CameraActivity.this, MainActivity.class);
                 startActivity(intent);
+                // TODO APAGAR LA APLICACION DESPUES DE ESTO
             }
         }, 3000);
 
