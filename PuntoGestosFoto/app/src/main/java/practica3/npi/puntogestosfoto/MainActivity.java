@@ -1,106 +1,98 @@
 package practica3.npi.puntogestosfoto;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+// Librería que se encarga de manejar el gesto (similar al patrón de bloqueo de Android)
 import haibison.android.lockpattern.LockPatternActivity;
 import haibison.android.lockpattern.utils.AlpSettings;
 
-public class MainActivity extends AppCompatActivity {
-    private static final int REQ_CREATE_PATTERN = 1;
-    private static final int REQ_ENTER_PATTERN = 2;
-    //private char[] pattern;
+public class MainActivity extends Activity {
+    private static final int SOLICITUD_CREAR_GESTO = 1;
+    private static final int SOLICITUD_INTRODUCIR_GESTO = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Opción para que la librería se encargue de guardar el ultimo patrón creado
         AlpSettings.Security.setAutoSavePattern(this, true);
 
-        Button btnCrearPatron = (Button) findViewById(R.id.crearPatron);
-        btnCrearPatron.setOnClickListener(new View.OnClickListener() {
+        // Al tocar el botón, se abre un diálogo para crear el gesto
+        Button botonCrearGesto = (Button) findViewById(R.id.botonCrearGesto);
+        botonCrearGesto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Creamos un Intent que se encarga de lanzar
+                // una ventana para que el usuario cree su gesto
                 LockPatternActivity.IntentBuilder
                         .newPatternCreator(MainActivity.this)
-                        .startForResult(MainActivity.this, REQ_CREATE_PATTERN);
+                        .startForResult(MainActivity.this, SOLICITUD_CREAR_GESTO);
             }
         });
 
-        Button btnIntroducirPatron = (Button) findViewById(R.id.introducirPatron);
-        btnIntroducirPatron.setOnClickListener(new View.OnClickListener() {
+        // Al tocar el botón, se abre un diálogo para crear el gesto
+        Button botonIntroducirGesto = (Button) findViewById(R.id.botonIntroducirGesto);
+        botonIntroducirGesto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Creamos un Intent que se encarga de lanzar una ventana
+                // para que el usuario introduzca el gesto anteriormente creado
                 LockPatternActivity.IntentBuilder
                         .newPatternComparator(MainActivity.this)
-                        .startForResult(MainActivity.this, REQ_ENTER_PATTERN);
+                        .startForResult(MainActivity.this, SOLICITUD_INTRODUCIR_GESTO);
             }
         });
-
-//        Button btnEliminarPatrones = (Button) findViewById(R.id.eliminarPatrones);
-//        btnEliminarPatrones.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SharedPreferences preferences = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = preferences.edit();
-//                editor.clear();
-//                editor.apply();
-//            }
-//        });
     }
 
+    // Inhabilita el botón atras
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQ_CREATE_PATTERN: {
-                if (resultCode == RESULT_OK) {
-                    char[] pattern = data.getCharArrayExtra(LockPatternActivity.EXTRA_PATTERN);
-                    Toast.makeText(this, "Pattern:\n" + pattern, Toast.LENGTH_LONG).show();
-                }
+    public void onBackPressed() {
+    }
 
+    /**
+     * Maneja los resultados de la creación/introducción del gesto
+     */
+    @Override
+    protected void onActivityResult(int codigoSolicitud, int codigoResultado, Intent datos) {
+        // Comprobamos si se lanzó la creación de gesto o la introducción.
+        switch (codigoSolicitud) {
+            case SOLICITUD_CREAR_GESTO: {
+                // No hace falta hacer nada que ya se ha activado el AutoSavePattern
+                // y el gesto se guarda automáticamente
                 break;
-            }// REQ_CREATE_PATTERN
-            case REQ_ENTER_PATTERN: {
-                // NOTE that there are 4 possible result codes!!!
-                switch (resultCode) {
+
+                // TODO ELIMINAR EN REV FINAL
+                //if (codigoResultado == RESULT_OK) {
+                //    char[] pattern = datos.getCharArrayExtra(LockPatternActivity.EXTRA_PATTERN);
+                //    Toast.makeText(this, "Pattern:\n" + pattern, Toast.LENGTH_LONG).show();
+                //}
+            }
+            case SOLICITUD_INTRODUCIR_GESTO: {
+                // hay 4 códigos de resultado que debemos de manejar
+                switch (codigoResultado) {
                     case RESULT_OK:
-                        // The user passed
-                        Toast.makeText(this, "RESULT_OK", Toast.LENGTH_LONG).show();
+                        // El usuario introdujo el gesto correcto
                         Intent intent = new Intent(this, CameraActivity.class);
                         startActivity(intent);
                         break;
                     case RESULT_CANCELED:
-                        // The user cancelled the task
-                        Toast.makeText(this, "RESULT_CANCELED", Toast.LENGTH_LONG).show();
+                        // El usuario canceló la tarea
+                        Toast.makeText(this, "Tarea cancelada", Toast.LENGTH_LONG).show();
                         break;
                     case LockPatternActivity.RESULT_FAILED:
-                        // The user failed to enter the pattern
-                        Toast.makeText(this, "RESULT_FAILED", Toast.LENGTH_LONG).show();
-                        break;
-                    case LockPatternActivity.RESULT_FORGOT_PATTERN:
-                        // The user forgot the pattern and invoked your recovery Activity.
-                        Toast.makeText(this, "RESULT_FORGOT_PATTERN", Toast.LENGTH_LONG).show();
+                        // El usuario introdujo un gesto incorrecto
+                        Toast.makeText(this, "Gesto incorrecto", Toast.LENGTH_LONG).show();
                         break;
                 }
 
-                // In any case, there's always a key EXTRA_RETRY_COUNT, which holds the number
-                // of tries that the user did.
-                int retryCount = data.getIntExtra(LockPatternActivity.EXTRA_RETRY_COUNT, 0);
-
                 break;
-            }// REQ_ENTER_PATTERN
+            }
         }
     }
 }

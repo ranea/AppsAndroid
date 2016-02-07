@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="practica3.npi.puntogestosfoto">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -22,8 +23,11 @@
         </activity>
         <activity android:name=".CameraActivity"
             android:screenOrientation="landscape">
-            <!-- configure this activity to use landscape orientation -->
         </activity>
+        <activity
+            android:name="haibison.android.lockpattern.LockPatternActivity"
+            android:theme="@style/Alp_42447968.Theme.Dialog.Dark"
+            tools:replace="android:theme"/>
     </application>
 
 </manifest>

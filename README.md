@@ -16,7 +16,8 @@ Conjunto de aplicaciones Android de diversas funcionalidades.
 
 * [x] Documentar BrujulaActivity
 * [x] Cambiar el layout de BrujulaActivity
-* [ ] Terminar de implementar BrujulaVoz y documentar lo implementado
+* [ ] Terminar de implementar BrujulaVoz y documentar lo implementado (@analca3)
+* [ ] Documentar CameraPreview
 
 # Guía de estilo
 

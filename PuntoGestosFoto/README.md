@@ -21,3 +21,7 @@ http://stackoverflow.com/questions/1520887/how-to-pause-sleep-thread-or-process-
 http://developer.android.com/intl/es/guide/topics/data/data-storage.html#filesExternal
 
 http://developer.android.com/intl/es/reference/android/util/Log.html
+
+# Enlaces 3
+
+http://stackoverflow.com/questions/4779954/disable-back-button-in-android

@@ -1,9 +1,5 @@
 package practica3.npi.puntogestosfoto;
 
-/**
- * Created by hhrr on 2/5/16.
- */
-
 import android.content.Context;
 import android.hardware.Camera;
 import android.util.Log;
@@ -22,6 +18,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         super(context);
         mCamera = camera;
 
+
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
         mHolder = getHolder();
@@ -31,6 +28,12 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
+        // horizontal mode
+        //Camera.Parameters parameters = mCamera.getParameters();
+        //parameters.set("orientation", "portrait");
+        //parameters.setRotation(90);
+        //mCamera.setParameters(parameters);
+        //mCamera.setDisplayOrientation(90);
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
             mCamera.setPreviewDisplay(holder);
