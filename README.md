@@ -2,6 +2,10 @@
 
 Conjunto de aplicaciones Android de diversas funcionalidades.
 
+Ejemplo de una app:
+
+![animation](ejemploApp.gif)
+
 # TODO
 
 * [ ] Realizar los layout
