@@ -15,7 +15,7 @@ Conjunto de aplicaciones Android de diversas funcionalidades.
 
 * [x] Documentar BrujulaActivity
 * [x] Cambiar el layout de BrujulaActivity
-* [ ] (@analca3) Terminar de implementar BrujulaVoz y documentar lo implementado
+* [ ] Terminar de implementar BrujulaVoz y documentar lo implementado
 
 # Guía de estilo
 
