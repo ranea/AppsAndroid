@@ -1,73 +1,66 @@
-# TODO
+# BrujulaVoz
 
-[ ] Poner nombres buenos a los titulos de las Activiy
+## TO DO
 
-# Enlaces voz (ordenados)
+* [ ] Spell-check ES para Atom.
+* [ ] Eliminar codigo comentado
+* [ ] Añadir referencia a las imagenes e iconos utilizados (md)
+* [ ] Implementar los TO DO y documentar lo que se haya implementado
+* [ ] Hacer el tutorial (con snapshot y gif). Esto lo último
 
-http://developer.android.com/intl/es/reference/android/speech/RecognizerIntent.html
+## Descripción de la aplicación
 
-http://developer.android.com/intl/es/reference/android/speech/SpeechRecognizer.html
+La aplicación BrujulaVoz es una aplicación sencilla para Android que hace uso del reconocimiento de voz y de los sensores acelerómetro y magnetómetro.
 
-http://developer.android.com/intl/es/guide/topics/ui/declaring-layout.html
+Primeramente, se le pedirá al usuario que le diga a la aplicación por voz una dirección y un margen de error, por ejemplo:
+ - norte diez
+ - sur treinta y nueve
 
-http://www.truiton.com/2014/06/android-speech-recognition-without-dialog-custom-activity/
 
-https://www.learn2crack.com/2013/12/android-speech-recognition-example.html
+[snapshot1 - OKgoogle]
 
-https://www.projectoxford.ai/doc/speech/Get-Started/android
+Con estos datos, aparecerá una flecha que actuará de brújula. La flecha se gira a la par que se va girando el dispositivo y cuando la flecha está enderezada, el dispositivo apunta hacia donde dijera el usuario en el primer paso
+(norte o sur en los ejemplos).
 
-http://www.javacodegeeks.com/2012/08/android-voice-recognition-tutorial.html
+[snapshot2 - azul]
 
-http://www.tutorialeshtml5.com/2013/03/tutorial-simple-reconocimiento-de-voz.html
+Además, la flecha se pondrá de color verde cuando el dispositivo esté en la orientación correcta dentro del margen de error. Lo vemos con un ejemplo:
+ - Supongamos que el usuario dijo "norte diez".
+ - Cuando la orientación del dispositivo esté entre -5 y 5 grados, la flecha se pondrá de color verde.
+ - Esto quiere decir que la flecha estára verde cuando esté completamente enderezada (0 grados), levemente hacia la izquierda (hasta -5 grados) o levemente hacia la derecha (hasta +5 grados).
 
-http://www.jameselsey.co.uk/blogs/techblog/android-how-to-implement-voice-recognition-a-nice-easy-tutorial/
 
-2015
+[snapshot3 - verde]
 
-http://indragni.com/blog/2015/09/20/how-to-do-speech-recognition-in-android/
+Si por el contrario el usuario hubiera dicho "sur 45", la flecha se pondría verde cuando estuviera enderezada (ahora se da cuando el dispositivo está a 180º), y como el margen de error es elevado, seguiría verde aunque se moviera el dispositivo un poco hacia algún lado.
 
-# Enlaces brujula
 
-NUP http://www.codeproject.com/Articles/1000120/Android-Compass
+## Implementación
 
-http://agamboadev.esy.es/como-crear-un-brujula-en-android/
+*Nota*: todo el código esta bastante documento. La siguiente explicación es una breve descripción a muy alto nivel de como se ha implementado la aplicación.
 
-http://www.techrepublic.com/article/pro-tip-create-your-own-magnetic-compass-using-androids-internal-sensors/
 
-NUP http://www.javacodegeeks.com/2013/09/android-compass-code-example.html
+La primera parte de la aplicación es la correspondiente a la actividad *MainActivity*.
 
-# Enlaces brujula v2
+### MainActivity
 
-http://stackoverflow.com/questions/15074905/sensor-activity-in-android
+Para lanzar el reconocimiento de voz, el usuario debe pulsar en la imagen del micrófono que hay en la pantalla. Para ello basta añadir un método *setOnClickListener()* a dicha imagen.
 
-http://developer.android.com/intl/es/reference/android/hardware/SensorManager.html
+En este método se encuentra *iniciarReconocimientoVoz()*, que es el que se encarga de realizar el reconocimiento de voz. Internamente crea un Intent de tipo *RecognizerIntent.ACTION_RECOGNIZE_SPEECH* que se ejecutará en la misma actividad mediante *startActivityForResult()*.
 
-http://developer.android.com/intl/es/guide/topics/sensors/sensors_position.html
+En *onActivityResult()* manejamos los datos que devuelve el módulo del reconocimiento de voz. Básicamente obtenemos un *String* de los datos devueltos y comprobamos en *validarMensaje()* que este String es de la forma `<dirección> <error>` donde:
+ - direcciÓn debe ser una de las siguientes palabras: norte, sur, este u oeste
+ - error debe ser un número entero.
 
-http://developer.android.com/intl/es/guide/topics/sensors/sensors_overview.html
+Si el mensaje se valida, se procede a la siguiente actividad, *BrujulaActivity*. Si no, se le permite al usuario que reintente el proceso.
 
-http://stackoverflow.com/questions/1309629/how-to-change-colors-of-a-drawable-in-android
+### BrujulaActivity
 
-http://developer.android.com/intl/es/reference/android/view/animation/RotateAnimation.html
+...
 
-# Enlaces 3
+## Problemas encontrados
 
-https://es.wikipedia.org/wiki/Acimut
 
-# Enlaces 4
+## Referencias
 
-http://stackoverflow.com/questions/26615889/how-to-change-the-launcher-logo-of-an-app-in-android-studio
-
-https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=image&foreground.space.trim=0&foreground.space.pad=0&foreColor=4caf50%2C100&crop=0&backgroundShape=bevel&backColor=fff%2C100&effects=none
-
-http://stackoverflow.com/questions/15524221/change-the-font-size-of-an-textview-element-in-android
-
-http://stackoverflow.com/questions/1492554/set-transparent-background-of-an-imageview-in-android
-
-https://design.google.com/icons/#ic_navigation
-
-https://design.google.com/icons/#ic_keyboard_voice
-
-http://developer.android.com/intl/es/training/material/theme.html
-
-http://stackoverflow.com/questions/21762203/change-the-project-theme-in-android-studio
+## Bibliografía

@@ -1,32 +1,30 @@
-# AppsAndroid
+# Aplicaciones Android
 
 Conjunto de aplicaciones Android de diversas funcionalidades.
 
-Ejemplo de una app:
+ - [BrujulaVoz](https://github.com/ranea/AppsAndroid/tree/master/BrujulaVoz)
+ - [PuntosGPSQR](https://github.com/ranea/AppsAndroid/tree/master/PuntoGPSQR)
+ - [PuntosGestosFoto](https://github.com/ranea/AppsAndroid/tree/master/PuntoGestosFoto)
+ - [PuntosMovimientoSonido](https://github.com/ranea/AppsAndroid/tree/master/PuntoMovimientoSonido)
+ - [AppSorpresa]()
+
+Ejemplo de PuntosGestosFoto:
 
 ![animation](ejemploApp.gif)
 
-# TODO
+# TO DO (general)
 
 * [ ] Realizar los layout
-* [ ] Picar 5º app 
+* [ ] Picar 5º app
 * [ ] Elminar codigo comentado
 * [ ] Comentar código
-* [x] Coger una imagen libre para la flecha de la brújula
 * [ ] Hacer el tutorial (con snapshot)
 * [ ] Añadir referencia a las imagenes e iconos utilizados (md)
-
-# TODO (prioridad)
-
-* [x] Documentar BrujulaActivity
-* [x] Cambiar el layout de BrujulaActivity
-* [ ] Terminar de implementar BrujulaVoz (hacer los TODO) y documentar lo implementado (@analca3)
-* [x] Documentar CameraPreview
 * [ ] Buscar un sonido libre y corto (menos de 1MB)
 
 # Guía de estilo
 
-- Todos los nombres de las varialbes y funciones en español (a no ser el nombre sea uno propio de Android/java)
+- Todos los nombres de las variables y funciones en *español* (a no ser que sea uno propio de Android/java)
 - Para comentarios largos (3+ lineas, usar):
 /*
  *
