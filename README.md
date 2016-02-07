@@ -20,8 +20,9 @@ Ejemplo de una app:
 
 * [x] Documentar BrujulaActivity
 * [x] Cambiar el layout de BrujulaActivity
-* [ ] Terminar de implementar BrujulaVoz y documentar lo implementado (@analca3)
-* [ ] Documentar CameraPreview
+* [ ] Terminar de implementar BrujulaVoz (hacer los TODO) y documentar lo implementado (@analca3)
+* [x] Documentar CameraPreview
+* [ ] Buscar un sonido libre y corto (menos de 1MB)
 
 # Guía de estilo
 

@@ -4,94 +4,85 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 
+/*
+ * Clase que maneja el acelerómetro.
+ */
 public class AcelerometroData implements SensorEventListener {
+    private final SensorManager sensorManager;
+    private final Sensor acelerometro;
+    private final MainActivity mainActivity;
 
-    private final SensorManager mSensorManager;
-    private final Sensor mAccelerometer;
-    private final MainActivity ma;
+    private float[] datosAcelerometro;
+    private float[] gravedad;
+    private float[] aceleracionLineal;
+    private final float filtroAlpha = 0.8f;
+    // TODO fijar el siguiente valor bien
+    private final float aceleracionMinima = 3;
 
-    private float[] mLastAccelerometer;
-    private float[] gravity;
-    private float[] linear_acceleration;
-    private final float alpha = 0.8f;
+    /*
+     * Inicializamos los valores que se le pasan en la actividad MainActivity:
+     *  - sensorManager no se iniciliza aquí porque tiene que llamar a getSystemService(),
+     *    que esta disponible solo en el contexto (esto es, en la actividad MainActivity)
+     *  - mainActivity es necesario para llamar a funciones que están definidas allí
+     */
+    public AcelerometroData(SensorManager sensorManager, MainActivity mainActivity) {
+        this.sensorManager = sensorManager;
+        acelerometro = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        this.mainActivity = mainActivity;
 
-//    private float[] mRotationMatrix;
-//    private float[] mOrientation;
-//    private float mCurrentDegree;
-
-    public AcelerometroData(SensorManager sm, MainActivity ma) {
-        // only getSystemService available in context
-        mSensorManager = sm;
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        this.ma = ma;
-
-        mLastAccelerometer = null;
-        gravity = new float[3];
-        linear_acceleration = new float[3];
-        /*
-        mRotationMatrix = new float[9];
-        mOrientation = new float[3];
-        mCurrentDegree = 0f;*/
+        datosAcelerometro = null;
+        gravedad = new float[3];
+        aceleracionLineal = new float[3];
     }
 
     protected void onResume() {
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        // Registramos un listerner para recibir datos del acelerómetro del dispositivo
+        sensorManager.registerListener(this, acelerometro, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     protected void onPause() {
-        mSensorManager.unregisterListener(this);
+        // Una buena práctica es parar los sensores cuando la aplicación no está en primer plano
+        sensorManager.unregisterListener(this);
     }
 
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-    }
-
-    public void onSensorChanged(SensorEvent event) {
-        // Here we call a method in BrujulaActivity and pass it the values from the SensorChanged event
-        // ba.setTextViewValue(event.values);
-
-        switch (event.sensor.getType()) {
-            case Sensor.TYPE_ACCELEROMETER:
-                mLastAccelerometer = event.values;
-                break;
+    // Esta función se ejecuta cada vez que el sensor cambia
+    public void onSensorChanged(SensorEvent evento) {
+        // Solo nos interesa cuando el evento esta asociado al acelerómetro
+        if (evento.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            datosAcelerometro = evento.values;
         }
 
-        if ((mLastAccelerometer != null)) {
-            // In this example, alpha is calculated as t / (t + dT),
-            // where t is the low-pass filter's time-constant and
-            // dT is the event delivery rate.
+        if ((datosAcelerometro != null)) {
+            /*
+             * Isolamos la fuerce de la gravedad con el filtro paso-bajo (alpha).
+             * Alpha se ha calculado como t/(t+dT), donde t es el filtro paso-bajo
+             * constante en el tiempo y dT es la tasa de envíos de eventos.
+             */
+            gravedad[0] = filtroAlpha * gravedad[0] + (1 - filtroAlpha) * evento.values[0];
+            gravedad[1] = filtroAlpha * gravedad[1] + (1 - filtroAlpha) * evento.values[1];
+            gravedad[2] = filtroAlpha * gravedad[2] + (1 - filtroAlpha) * evento.values[2];
 
-            // Isolate the force of gravity with the low-pass filter.
-            gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
-            gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
-            gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
+            // Removemos la contribución de la gravedad con el filtro paso-alto
+            aceleracionLineal[0] = evento.values[0] - gravedad[0];
+            aceleracionLineal[1] = evento.values[1] - gravedad[1];
+            aceleracionLineal[2] = evento.values[2] - gravedad[2];
 
-            // Remove the gravity contribution with the high-pass filter.
-            linear_acceleration[0] = event.values[0] - gravity[0];
-            linear_acceleration[1] = event.values[1] - gravity[1];
-            linear_acceleration[2] = event.values[2] - gravity[2];
-
-            ma.setTextView1Value(gravity[0], linear_acceleration[0]);
-            ma.setTextView2Value(gravity[1], linear_acceleration[1]);
-            ma.setTextView3Value(gravity[2], linear_acceleration[2]);
-
-            // TODO elegir el gesto (x valor absoluto mayor que tal)
-
-            if (linear_acceleration[0] > 3){
-                ma.reproducirSonido();
+            /*
+             * Si agitamos el dispositivo en la dirección de la X,
+             * gravedad[0] contendrá un valor positivo no trivial
+             * y utilizamos este valor para detectar el gesto que
+             * activará el sonido
+             */
+            // TODO ELIMINAR DEBUG Y PERFILAR CONDICION
+            mainActivity.fijarTextoAceleracion(aceleracionLineal[0]);
+            if (aceleracionLineal[0] > aceleracionMinima){
+                mainActivity.reproducirSonidoYAnimacion();
             }
-
-
-/*            SensorManager.getRotationMatrix(mRotationMatrix, null, mLastAccelerometer, mLastMagnetometer);
-            SensorManager.getOrientation(mRotationMatrix, mOrientation);
-
-            float azimuthInRadians = mOrientation[0];
-            float azimuthInDegress = (float)(Math.toDegrees(azimuthInRadians)+360)%360;
-
-            ba.setTextViewValue(azimuthInDegress);*/
-
         }
+    }
+
+    // Esta función necesita estar definida aunque no es necesario implementarla en nuestro caso
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 }

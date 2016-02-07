@@ -1,83 +1,78 @@
 package practica3.npi.puntomovimientosonido;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.hardware.SensorManager;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
-    private AcelerometroData ad;
-    private TextView someTextView1;
-    private TextView someTextView2;
-    private TextView someTextView3;
+public class MainActivity extends Activity {
+    private AcelerometroData acelerometro;
+    private TextView textoAceleracion;
+    private ImageView imagenIcono;
+    private TranslateAnimation animation;
 
-    SoundPool ourSounds;
-    int soundExplosion;
-    Button playExplosion;
+    SoundPool sonidos;
+    int sonidoExplosion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // "this" allows to make calls back to the BrujulaActivity
-        ad = new AcelerometroData((SensorManager) getSystemService(SENSOR_SERVICE), this);
-        someTextView1 = (TextView) findViewById(R.id.my_text_view1);
-        someTextView2 = (TextView) findViewById(R.id.my_text_view2);
-        someTextView3 = (TextView) findViewById(R.id.my_text_view3);
+        // Instaciamos la clase AcelerometroData que se encargará de tomar el dato del sensor
+        acelerometro = new AcelerometroData((SensorManager) getSystemService(SENSOR_SERVICE), this);
 
+        textoAceleracion = (TextView) findViewById(R.id.textoAceleracion);
+        imagenIcono = (ImageView) findViewById(R.id.imagenIcono);
 
+        // Creamos una pequeña animación que mueve el icono del móvil a izquierda y a derecha
+        // Se ejecutará cuando se agite el móvil (a la vez que se escucha el sonido)
+        animation = new TranslateAnimation(-10.0f, 10.0f,
+                0.0f, 0.0f);
+        animation.setDuration(100);
+        animation.setRepeatCount(1);
+        animation.setFillAfter(true);
+
+        // Iniciamos el SoundPool que manejará el sonido
+        // Como solo vamos a reproducir un sonido, con un canal (Stream) basta
+        // El sonido se reproducirá cuando se agite el móvil
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .setUsage(AudioAttributes.USAGE_GAME)
                 .build();
-        ourSounds = new SoundPool.Builder()
+        sonidos = new SoundPool.Builder()
                 .setMaxStreams(1)
                 .setAudioAttributes(audioAttributes)
                 .build();
         // TODO buscar sonido libre
-        soundExplosion = ourSounds.load(this, R.raw.explosion, 1);
-        ourSounds.play (soundExplosion, 0.9f, 0.9f, 1, 0, 1);
-
-
-        playExplosion = (Button) findViewById(R.id.button);
-        playExplosion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ourSounds.play (soundExplosion, 0.9f, 0.9f, 1, 0, 1);
-            }
-        });
+        sonidoExplosion = sonidos.load(this, R.raw.explosion, 1);
     }
 
     protected void onResume() {
         super.onResume();
-        ad.onResume();
+        acelerometro.onResume();
     }
 
     protected void onPause() {
         super.onPause();
-        ad.onPause();
+        acelerometro.onPause();
     }
 
-    protected void setTextView1Value(float value1, float value2) {
-        someTextView1.setText(Float.toString(value1) + " | " + Float.toString(value2));
+    // Modifica el TextView que contiene la aceleración lineal en el eje X
+    // que posee el dispositivo en el momento. Se llama desde AcelerometroData
+    protected void fijarTextoAceleracion(float aceleracion) {
+        textoAceleracion.setText("Aceleración: " + Float.toString(aceleracion));
     }
 
-    protected void setTextView2Value(float value1, float value2) {
-        someTextView2.setText(Float.toString(value1) + " | " + Float.toString(value2));
-    }
-
-    protected void setTextView3Value(float value1, float value2) {
-        someTextView3.setText(Float.toString(value1) + " | " + Float.toString(value2));
-    }
-
-    protected void reproducirSonido(){
-        ourSounds.play (soundExplosion, 0.9f, 0.9f, 1, 0, 1);
+    // Reproduce el sonido y realiza la animación de agitar el icono del móvil
+    // Se llama desde AcelerometroData cuando la aceleración lineal
+    // en el eje X supera un mínimo.
+    protected void reproducirSonidoYAnimacion(){
+        sonidos.play(sonidoExplosion, 0.9f, 0.9f, 1, 0, 1);
+        imagenIcono.startAnimation(animation);
     }
 }
