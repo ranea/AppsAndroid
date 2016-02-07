@@ -6,6 +6,7 @@ import android.hardware.SensorManager;
 import android.hardware.SensorEventListener;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.Toast;
 
 /*
  * Clase que maneja los sensores acelerómetro y magnetómetro.
@@ -43,7 +44,7 @@ public class BrujulaData implements SensorEventListener {
         datosMagnetrometro = null;
         matrizRotacion = new float[9];
         orientacion = new float[3];
-        orientacionAnterior = 0f;
+        orientacionAnterior = 180f;
 
         // TODO implementar calcularOrientacionDada()
         orientacionDada = calcularOrientacionDada(mensaje);
@@ -95,8 +96,14 @@ public class BrujulaData implements SensorEventListener {
             // Pasamos los azimut dados en radianes a grados
             float orientacionDispositivo = (float)(Math.toDegrees(azimut)+360)%360;
 
+            // TODO ELIMINAR REV FINAL. Cambiar tb el metodo editarTextoOrientacionDispositivo
             // Mostramos por pantalla la orientación
-            brujulaActivity.editarTextoOrientacionDispositivo(orientacionDispositivo);
+            String debug = Float.toString(orientacionDispositivo) + ", "
+                    + Float.toString(orientacionDada-orientacionDispositivo) + "; "
+                    + Float.toString(orientacionAnterior) + ", "
+                    + Float.toString(-orientacionDispositivo);
+            brujulaActivity.editarTextoOrientacionDispositivo(1,debug);
+            //brujulaActivity.editarTextoOrientacionDispositivo(orientacionDispositivo);
 
             /*
              * Creamos una animación para que el puntero se mueva desde la orientación
@@ -104,12 +111,10 @@ public class BrujulaData implements SensorEventListener {
              * Posteriormente en iniciarAnimacionPuntero() le aplicaremos
              * dicha animacion a la imagen del puntero.
              */
-            // TODO Lo siguiente es + o - (hay que probar)
-            // TODO Hay que ver si poner orientacionDada-orientacionDispositivo entre 0 y 360 o permitir numeros negativos
-            // TODO arreglar la inestabilidad de la flecha
+            // TODO arreglar la inestabilidad de la flecha (se debe cuando pasa de 359 a 1º, no maneja bien este salto)
             RotateAnimation animacion = new RotateAnimation(
                     orientacionAnterior,
-                    orientacionDada-orientacionDispositivo,
+                    -(orientacionDispositivo+orientacionDada),
                     Animation.RELATIVE_TO_SELF, 0.5f,
                     Animation.RELATIVE_TO_SELF,
                     0.5f);
@@ -118,7 +123,9 @@ public class BrujulaData implements SensorEventListener {
             brujulaActivity.iniciarAnimacionPuntero(animacion, esOrientacionBuena(orientacionDispositivo));
 
             // TODO porque esto es con menos?
-            orientacionAnterior = -orientacionDispositivo;
+            orientacionAnterior = -(orientacionDispositivo+orientacionDada);
+
+
         }
     }
 
@@ -137,7 +144,8 @@ public class BrujulaData implements SensorEventListener {
         }
         else if(mensaje.startsWith("sur"))
             return 180;
-        return 180;
+        else
+            return 0;
     }
 
     /*
@@ -158,7 +166,7 @@ public class BrujulaData implements SensorEventListener {
     // TODO margen de error se refiere a esto o a quitar el /2?
     protected boolean esOrientacionBuena(float orientacionDispositivo){
         return orientacionDada - margenError/2 <= orientacionDispositivo &&
-                orientacionDispositivo <= orientacionDada - margenError/2;
+                orientacionDispositivo <= orientacionDada + margenError/2;
     }
 
     // Esta función necesita estar definida aunque no es necesario implementarla en nuestro caso

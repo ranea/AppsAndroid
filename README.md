@@ -10,6 +10,7 @@ Conjunto de aplicaciones Android de diversas funcionalidades.
 * [ ] Comentar código
 * [ ] Coger una imagen libre para la flecha de la brújula
 * [ ] Hacer el tutorial (con snapshot)
+* [ ] Añadir referencia a las imagenes e iconos utilizados (md)
 
 # TODO (prioridad)
 

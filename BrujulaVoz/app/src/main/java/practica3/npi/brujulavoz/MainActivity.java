@@ -1,5 +1,6 @@
 package practica3.npi.brujulavoz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private static final int RECONOCIMIENTO_VOZ = 0;
     public final static String EXTRA_MENSAJE = "practica3.npi.brujulavoz.MENSAJE";
 
