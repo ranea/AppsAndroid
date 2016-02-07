@@ -5,7 +5,7 @@ import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,13 +21,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // TODO ELIMINAR EN REV FINAL
         // El reconocimiento de voz se ejecuta una 1ª vez automáticamente.
-        iniciarReconocimientoVoz();
+        // iniciarReconocimientoVoz();
         
         // Si no se reconoce el tipo de mensaje que se busca, se deja
-        // al usuario que reintente el reconocimiento con un botón.
-        Button btnReintentarReconVoz = (Button) findViewById(R.id.reintentarReconocimientoVoz);
-        btnReintentarReconVoz.setOnClickListener(new View.OnClickListener() {
+        // al usuario que reintente el reconocimiento tocando el icono del micrófono.
+        ImageView imgMicrofono = (ImageView) findViewById(R.id.microfono);
+        imgMicrofono.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iniciarReconocimientoVoz();

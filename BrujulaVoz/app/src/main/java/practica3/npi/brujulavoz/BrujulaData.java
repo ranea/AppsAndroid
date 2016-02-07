@@ -96,7 +96,7 @@ public class BrujulaData implements SensorEventListener {
             float orientacionDispositivo = (float)(Math.toDegrees(azimut)+360)%360;
 
             // Mostramos por pantalla la orientación
-            brujulaActivity.setTextViewValue(orientacionDispositivo);
+            brujulaActivity.editarTextoOrientacionDispositivo(orientacionDispositivo);
 
             /*
              * Creamos una animación para que el puntero se mueva desde la orientación

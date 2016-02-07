@@ -4,17 +4,18 @@ Conjunto de aplicaciones Android de diversas funcionalidades.
 
 # TODO
 
-[] Realizar los layout
-[] Picar 5º app 
-[] Elminar codigo comentado
-[] Poner todos los layour como LinearLayout, centrar botones y textos, y agrandar la letra
-[] Comentar código
-[] Coger una imagen libre para la flecha de la brújula
+[ ] Realizar los layout
+[ ] Picar 5º app 
+[ ] Elminar codigo comentado
+[ ] Poner todos los layour como LinearLayout, centrar botones y textos, y agrandar la letra
+[ ] Comentar código
+[ ] Coger una imagen libre para la flecha de la brújula
 
 # TODO (prioridad)
 
-[] Documentar BrujulaActivity
-[] Cambiar el layout de BrujulaActivity
+[x] Documentar BrujulaActivity
+[x] Cambiar el layout de BrujulaActivity
+[ ] (@analca3) Terminar de implementar BrujulaVoz y documentar lo implementado
 
 # Guía de estilo
 

@@ -49,3 +49,25 @@ http://developer.android.com/intl/es/guide/topics/sensors/sensors_overview.html
 http://stackoverflow.com/questions/1309629/how-to-change-colors-of-a-drawable-in-android
 
 http://developer.android.com/intl/es/reference/android/view/animation/RotateAnimation.html
+
+# Enlaces 3
+
+https://es.wikipedia.org/wiki/Acimut
+
+# Enlaces 4
+
+http://stackoverflow.com/questions/26615889/how-to-change-the-launcher-logo-of-an-app-in-android-studio
+
+https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=image&foreground.space.trim=0&foreground.space.pad=0&foreColor=4caf50%2C100&crop=0&backgroundShape=bevel&backColor=fff%2C100&effects=none
+
+http://stackoverflow.com/questions/15524221/change-the-font-size-of-an-textview-element-in-android
+
+http://stackoverflow.com/questions/1492554/set-transparent-background-of-an-imageview-in-android
+
+https://design.google.com/icons/#ic_navigation
+
+https://design.google.com/icons/#ic_keyboard_voice
+
+http://developer.android.com/intl/es/training/material/theme.html
+
+http://stackoverflow.com/questions/21762203/change-the-project-theme-in-android-studio
