@@ -25,3 +25,7 @@ http://developer.android.com/intl/es/reference/android/util/Log.html
 # Enlaces 3
 
 http://stackoverflow.com/questions/4779954/disable-back-button-in-android
+
+http://stackoverflow.com/questions/7493287/android-how-do-i-get-string-from-resources-using-its-name
+
+http://developer.android.com/intl/es/guide/topics/resources/accessing-resources.html#ResourcesFromCode

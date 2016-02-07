@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
                 switch (codigoResultado) {
                     case RESULT_OK:
                         // El usuario introdujo el gesto correcto
-                        Intent intent = new Intent(this, CameraActivity.class);
+                        Intent intent = new Intent(this, CamaraActivity.class);
                         startActivity(intent);
                         break;
                     case RESULT_CANCELED:

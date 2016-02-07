@@ -18,14 +18,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CameraActivity extends Activity {
+public class CamaraActivity extends Activity {
     // String para marcar entradas en en log
-    private static final String TAG = "@string/app_name";
+    private static final String TAG = "CamaraActivity";
 
     // Variables relacionadas con la cámara
-    private Camera camera;
-    private CameraPreview cameraPreview;
-    private Camera.PictureCallback pictureCallback;
+    private Camera camara;
+    private VistaPreviaCamara vistaPreviaCamara;
+    private Camera.PictureCallback fotoCallBack;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,34 +33,34 @@ public class CameraActivity extends Activity {
         setContentView(R.layout.activity_camera);
 
         // Creamos una instancia de Camera
-        camera = Camera.open();
+        camara = Camera.open();
 
         // Introducimos la vista previa de la cámara en el FrameLayout vistaPreviaCamara
-        cameraPreview = new CameraPreview(this, camera);
+        vistaPreviaCamara = new VistaPreviaCamara(this, camara);
         FrameLayout vistaPreviaCamara = (FrameLayout) findViewById(R.id.vistaPreviaCamara);
-        vistaPreviaCamara.addView(cameraPreview);
+        vistaPreviaCamara.addView(this.vistaPreviaCamara);
 
         // Ejecutamos el codigo de tomar una foto a los 3 segundos (3000 milisegundos)
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                // Tomamos la foto y ejecutamos pictureCallback()
-                camera.takePicture(null, null, pictureCallback);
+                // Tomamos la foto y ejecutamos fotoCallBack()
+                camara.takePicture(null, null, fotoCallBack);
 
                 // Mostramos al usuario donde se ha guardado la foto
                 String path = Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES) + "@string/app_name";
-                Toast.makeText(CameraActivity.this, "Imagen guardada en: " + path, Toast.LENGTH_LONG).show();
+                        Environment.DIRECTORY_PICTURES) + getString(R.string.app_name);
+                Toast.makeText(CamaraActivity.this, "Imagen guardada en: " + path, Toast.LENGTH_LONG).show();
             }
         }, 3000);
 
         // Función que se ejecutará al tomar una foto
-        pictureCallback = new Camera.PictureCallback() {
+        fotoCallBack = new Camera.PictureCallback() {
 
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
                 // Creamos el archivo (un Uri) que alojará la imagen
-                File pictureFile = getOutputMediaFile();
+                File pictureFile = obtenerArchivoMultimediaDeSalida(getString(R.string.app_name));
                 if (pictureFile == null){
                     Log.d(TAG, "Error al crear el archivo media. Comprueba permisos de almacenamiento: ");
                     return;
@@ -78,7 +78,7 @@ public class CameraActivity extends Activity {
                 }
 
                 // Volvemos a la actividad principal al echar la foto
-                Intent intent = new Intent(CameraActivity.this, MainActivity.class);
+                Intent intent = new Intent(CamaraActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }
@@ -93,14 +93,14 @@ public class CameraActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        releaseCamera();
+        liberarCamara();
     }
 
-    private void releaseCamera(){
+    private void liberarCamara(){
         // Paramos la cámara cuando no esté la app en primer plano
-        if (camera != null){
-            camera.release();
-            camera = null;
+        if (camara != null){
+            camara.release();
+            camara = null;
         }
     }
 
@@ -109,30 +109,30 @@ public class CameraActivity extends Activity {
     // **************************************************************************************
 
     // Creamos un archivo Uri para guardar la imagen
-    private static Uri getOutputMediaFileUri(){
-        return Uri.fromFile(getOutputMediaFile());
+    private static Uri obtenerUriDeArchivoMultimediaDeSalida(String nombreCarpeta){
+        return Uri.fromFile(obtenerArchivoMultimediaDeSalida(nombreCarpeta));
     }
 
     // Creamos un archivo para guardar la imagen
-    private static File getOutputMediaFile(){
+    private static File obtenerArchivoMultimediaDeSalida(String nombreCarpeta){
         // Fijamos el siguiente directorio de la SD para almacenar las fotos: "Pictures/PuntoGestosFoto"
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "@string/app_name");
+        File carpetaFotos = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), nombreCarpeta);
 
         // Creamos el directorio anterior si no existe
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
+        if (! carpetaFotos.exists()){
+            if (! carpetaFotos.mkdirs()){
                 Log.d(TAG, "Error al crear el directorio");
                 return null;
             }
         }
 
         // Creamos el nombre del archivo multimedia
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_"+ timeStamp + ".jpg");
+        String selloDeTiempo = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File archivoMultimedia;
+        archivoMultimedia = new File(carpetaFotos.getPath() + File.separator +
+                    "IMG_"+ selloDeTiempo + ".jpg");
 
-        return mediaFile;
+        return archivoMultimedia;
     }
 }

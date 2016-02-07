@@ -12,7 +12,7 @@ Ejemplo de una app:
 * [ ] Picar 5º app 
 * [ ] Elminar codigo comentado
 * [ ] Comentar código
-* [ ] Coger una imagen libre para la flecha de la brújula
+* [x] Coger una imagen libre para la flecha de la brújula
 * [ ] Hacer el tutorial (con snapshot)
 * [ ] Añadir referencia a las imagenes e iconos utilizados (md)
 

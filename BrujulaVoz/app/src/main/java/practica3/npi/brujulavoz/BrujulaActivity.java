@@ -2,9 +2,13 @@ package practica3.npi.brujulavoz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -14,6 +18,8 @@ public class BrujulaActivity extends Activity {
     private BrujulaData brujulaData;
     private TextView textoOrientacionDispositivo;
     private ImageView imagenPuntero;
+    Drawable puntero_azul;
+    Drawable puntero_verde;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,9 @@ public class BrujulaActivity extends Activity {
 
         textoOrientacionDispositivo = (TextView) findViewById(R.id.textoOrientacionDispositivo);
         imagenPuntero = (ImageView) findViewById(R.id.imagenPuntero);
+
+        puntero_azul = ResourcesCompat.getDrawable(getResources(), R.drawable.puntero_azul, null);
+        puntero_verde = ResourcesCompat.getDrawable(getResources(), R.drawable.puntero_verde, null);
     }
 
     protected void onResume() {
@@ -60,15 +69,19 @@ public class BrujulaActivity extends Activity {
     // que es donde se crea la animacion con los datos de la orientaciones.
     protected void iniciarAnimacionPuntero(RotateAnimation animacion, Boolean orientacionCorrecta) {
         // Si el dispositivo esta orientado según la direccion que propuso el usuario
-        // en el mensaje reconocido por voz, pintamos el puntero de verde.
+        // en el mensaje reconocido por voz, tomamos el puntero verde.
         // En otro caso, lo dejamos azul.
         if (orientacionCorrecta){
-            int color = Color.parseColor("#008000"); //color verde
-            imagenPuntero.setColorFilter(color);
+            imagenPuntero.setImageDrawable(puntero_verde);
+            // TODO ELIMINAR EN REV FINAL
+            //int color = Color.parseColor("#008000"); //color verde
+            //imagenPuntero.setColorFilter(color);
         }
         else{
-            int color = Color.parseColor("#0000FF"); //color azul
-            imagenPuntero.setColorFilter(color);
+            imagenPuntero.setImageDrawable(puntero_azul);
+            // TODO ELIMINAR EN REV FINAL
+            //int color = Color.parseColor("#0000FF"); //color azul
+            //imagenPuntero.setColorFilter(color);
         }
 
         // Le aplicamos la animación al puntero
