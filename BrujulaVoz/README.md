@@ -35,8 +35,6 @@ Además, la flecha se pondrá de color verde cuando el dispositivo esté en la o
 Si por el contrario el usuario hubiera dicho "sur 45", la flecha se pondría verde cuando estuviera enderezada (ahora se da cuando el dispositivo está a 180º), y como el margen de error es elevado, seguiría verde aunque se moviera el dispositivo un poco hacia algún lado.
 
 
----
-
 ## Implementación
 
 *Nota*: todo el código esta bastante documentado. La siguiente explicación es una breve descripción a muy alto nivel de como se ha implementado la aplicación.
@@ -66,14 +64,6 @@ En dicho método se obtiene la orientación (concretamente el azimut) del dispos
 
 *BrujulaActivity* se encarga de mostrarle la animación al usuario, en particular esto se hace en *iniciarAnimacionPuntero()*. Además si *BrujulaData* calculó que la orientación del dispositivo era muy próxima a la orientación dada por el usuario en el reconocimiento de voz, en *iniciarAnimacionPuntero()* se cambia la flecha por defecto azul en una flecha verde, indicando así al usuario la orientación correcta.
 
-
----
-
-## Problemas encontrados
-
-
-
----
 
 ## Bibliografía
 
@@ -106,9 +96,6 @@ En dicho método se obtiene la orientación (concretamente el azimut) del dispos
 [Definición de azimut](https://es.wikipedia.org/wiki/Acimut)
 
 [Parámetros del RotateAnimation](http://developer.android.com/intl/es/reference/android/view/animation/RotateAnimation.html)
-
-
----
 
 
 ## Licencias externas
