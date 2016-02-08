@@ -13,6 +13,7 @@ public class AcelerometroData implements SensorEventListener {
     private final Sensor acelerometro;
     private final MainActivity mainActivity;
 
+    // TODO usar esto bien
     private float[] datosAcelerometro;
     private float[] gravedad;
     private float[] aceleracionLineal;
