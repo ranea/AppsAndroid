@@ -124,8 +124,6 @@ public class BrujulaData implements SensorEventListener {
 
             // TODO porque esto es con menos?
             orientacionAnterior = -(orientacionDispositivo+orientacionDada);
-
-
         }
     }
 
