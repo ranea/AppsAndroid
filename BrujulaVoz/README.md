@@ -37,7 +37,7 @@ Si por el contrario el usuario hubiera dicho "sur 45", la flecha se pondría ver
 
 ## Implementación
 
-*Nota*: todo el código esta bastante documento. La siguiente explicación es una breve descripción a muy alto nivel de como se ha implementado la aplicación.
+*Nota*: todo el código esta bastante documentado. La siguiente explicación es una breve descripción a muy alto nivel de como se ha implementado la aplicación.
 
 
 La primera parte de la aplicación es la correspondiente a la actividad *MainActivity*.
@@ -49,7 +49,7 @@ Para lanzar el reconocimiento de voz, el usuario debe pulsar en la imagen del mi
 En este método se encuentra *iniciarReconocimientoVoz()*, que es el que se encarga de realizar el reconocimiento de voz. Internamente crea un Intent de tipo *RecognizerIntent.ACTION_RECOGNIZE_SPEECH* que se ejecutará en la misma actividad mediante *startActivityForResult()*.
 
 En *onActivityResult()* manejamos los datos que devuelve el módulo del reconocimiento de voz. Básicamente obtenemos un *String* de los datos devueltos y comprobamos en *validarMensaje()* que este String es de la forma `<dirección> <error>` donde:
- - direcciÓn debe ser una de las siguientes palabras: norte, sur, este u oeste
+ - dirección debe ser una de las siguientes palabras: norte, sur, este u oeste
  - error debe ser un número entero.
 
 Si el mensaje se valida, se procede a la siguiente actividad, *BrujulaActivity*. Si no, se le permite al usuario que reintente el proceso.
