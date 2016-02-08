@@ -1,5 +1,7 @@
 # BrujulaVoz
 
+[gif]
+
 ## TO DO
 
 * [ ] Spell-check ES para Atom.

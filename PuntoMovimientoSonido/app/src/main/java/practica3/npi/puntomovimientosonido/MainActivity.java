@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
     private TranslateAnimation animation;
 
     SoundPool sonidos;
-    int sonidoExplosion;
+    int sonidoMarioMoneda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,7 @@ public class MainActivity extends Activity {
                 .setMaxStreams(1)
                 .setAudioAttributes(audioAttributes)
                 .build();
-        // TODO buscar sonido libre
-        sonidoExplosion = sonidos.load(this, R.raw.explosion, 1);
+        sonidoMarioMoneda = sonidos.load(this, R.raw.coin, 1);
     }
 
     protected void onResume() {
@@ -72,7 +71,7 @@ public class MainActivity extends Activity {
     // Se llama desde AcelerometroData cuando la aceleración lineal
     // en el eje X supera un mínimo.
     protected void reproducirSonidoYAnimacion(){
-        sonidos.play(sonidoExplosion, 0.9f, 0.9f, 1, 0, 1);
+        sonidos.play(sonidoMarioMoneda, 0.9f, 0.9f, 1, 0, 1);
         imagenIcono.startAnimation(animation);
     }
 }

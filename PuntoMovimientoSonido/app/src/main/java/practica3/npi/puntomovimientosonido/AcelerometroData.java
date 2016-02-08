@@ -55,7 +55,7 @@ public class AcelerometroData implements SensorEventListener {
 
         if ((datosAcelerometro != null)) {
             /*
-             * Isolamos la fuerce de la gravedad con el filtro paso-bajo (alpha).
+             * Isolamos la fuerza de la gravedad con el filtro paso-bajo (alpha).
              * Alpha se ha calculado como t/(t+dT), donde t es el filtro paso-bajo
              * constante en el tiempo y dT es la tasa de envíos de eventos.
              */
@@ -74,7 +74,7 @@ public class AcelerometroData implements SensorEventListener {
              * y utilizamos este valor para detectar el gesto que
              * activará el sonido
              */
-            // TODO ELIMINAR DEBUG Y PERFILAR CONDICION
+            // TODO PERFILAR CONDICION
             mainActivity.fijarTextoAceleracion(aceleracionLineal[0]);
             if (aceleracionLineal[0] > aceleracionMinima){
                 mainActivity.reproducirSonidoYAnimacion();
