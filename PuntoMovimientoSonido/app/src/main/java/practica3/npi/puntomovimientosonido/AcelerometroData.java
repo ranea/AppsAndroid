@@ -13,6 +13,7 @@ public class AcelerometroData implements SensorEventListener {
     private final Sensor acelerometro;
     private final MainActivity mainActivity;
 
+    // TODO usar esto bien
     private float[] datosAcelerometro;
     private float[] gravedad;
     private float[] aceleracionLineal;
@@ -60,17 +61,17 @@ public class AcelerometroData implements SensorEventListener {
              * constante en el tiempo y dT es la tasa de envíos de eventos.
              */
             gravedad[0] = filtroAlpha * gravedad[0] + (1 - filtroAlpha) * evento.values[0];
-            gravedad[1] = filtroAlpha * gravedad[1] + (1 - filtroAlpha) * evento.values[1];
-            gravedad[2] = filtroAlpha * gravedad[2] + (1 - filtroAlpha) * evento.values[2];
+            //gravedad[1] = filtroAlpha * gravedad[1] + (1 - filtroAlpha) * evento.values[1];
+            //gravedad[2] = filtroAlpha * gravedad[2] + (1 - filtroAlpha) * evento.values[2];
 
             // Removemos la contribución de la gravedad con el filtro paso-alto
             aceleracionLineal[0] = evento.values[0] - gravedad[0];
-            aceleracionLineal[1] = evento.values[1] - gravedad[1];
-            aceleracionLineal[2] = evento.values[2] - gravedad[2];
+            //aceleracionLineal[1] = evento.values[1] - gravedad[1];
+            //aceleracionLineal[2] = evento.values[2] - gravedad[2];
 
             /*
              * Si agitamos el dispositivo en la dirección de la X,
-             * gravedad[0] contendrá un valor positivo no trivial
+             * aceleracionLineal[0] contendrá un valor positivo no trivial
              * y utilizamos este valor para detectar el gesto que
              * activará el sonido
              */

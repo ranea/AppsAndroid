@@ -4,9 +4,9 @@
 
 ## TO DO
 
-* [ ] Spell-check ES para Atom.
+* [x] Spell-check ES para Atom.
 * [ ] Eliminar codigo comentado
-* [ ] Añadir referencia a las imagenes e iconos utilizados (md)
+* [x] Añadir referencia a las imagenes e iconos utilizados (md)
 * [ ] Implementar los TO DO y documentar lo que se haya implementado
 * [ ] Hacer el tutorial (con snapshot y gif). Esto lo último
 
@@ -29,7 +29,7 @@ Con estos datos, aparecerá una flecha que actuará de brújula. La flecha se gi
 Además, la flecha se pondrá de color verde cuando el dispositivo esté en la orientación correcta dentro del margen de error. Lo vemos con un ejemplo:
  - Supongamos que el usuario dijo "norte diez".
  - Cuando la orientación del dispositivo esté entre -5 y 5 grados, la flecha se pondrá de color verde.
- - Esto quiere decir que la flecha estára verde cuando esté completamente enderezada (0 grados), levemente hacia la izquierda (hasta -5 grados) o levemente hacia la derecha (hasta +5 grados).
+ - Esto quiere decir que la flecha estará verde cuando esté completamente enderezada (0 grados), levemente hacia la izquierda (hasta -5 grados) o levemente hacia la derecha (hasta +5 grados).
 
 
 [snapshot3 - verde]
@@ -58,7 +58,7 @@ Si el mensaje se valida, se procede a la siguiente actividad, *BrujulaActivity*.
 
 ### BrujulaActivity
 
-Esta actividad recoge la segunda parte de la aplicación. Se encarga de mostrar al usuario una brujula que apunta a la dirección señalada anteriormente por el reconocimiento de voz.
+Esta actividad recoge la segunda parte de la aplicación. Se encarga de mostrar al usuario una brújula que apunta a la dirección señalada anteriormente por el reconocimiento de voz.
 
 La toma y procesamiento de datos de los sensores se hace en la clase *BrujulaData*. El manejo de sensores en Android es bastante sistemático: se crea un objeto *SensorManager*, se crean objetos asociados a los sensores con *getDefaultSensor()* y se registran *listeners* para recibir datos continuamente de los sensores. En el método *onSensorChanged()* es donde está el procesamiento de los datos.
 

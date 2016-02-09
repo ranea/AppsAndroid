@@ -1,31 +1,67 @@
-# Enlaces
+# PuntoGestosFoto
 
-https://bitbucket.org/haibison/android-lockpattern/wiki/Quick-Use
+[gif]
 
-http://stackoverflow.com/questions/3687315/deleting-shared-preferences
+## TO DO
 
-http://stackoverflow.com/questions/8034127/how-to-remove-some-key-value-pair-from-sharedpreferences
+* [ ] Eliminar código comentado
+* [ ] Implementar los TO DO y documentar lo que se haya implementado
+* [ ] Hacer el tutorial (con snapshot y gif). Esto lo último
+* [ ] Si hay tiempo, cambiar el orden (1ª vez que salte la creación; permitir el cambio de gesto si se ha introducido el anterior)
 
-http://developer.android.com/intl/es/training/gestures/index.html
+## Descripción de la aplicación
 
-NUP http://developer.android.com/intl/es/reference/android/gesture/GestureOverlayView.html
+La aplicación PuntoGestosFoto es una aplicación sencilla para Android que hace uso de reconocimiento de gestos para lanzar una foto automáticamente.
 
-# Enlaces 2
+[snapshot1 -  menu]
 
-http://developer.android.com/intl/es/guide/topics/media/camera.html#custom-camera
+En primer lugar, el usuario deberá crear un gesto. El gesto es análogo al patrón que usa Android en el bloqueo de pantalla y el procedimiento para crearlo es similar. Para el usuario será fácil pues está ya familiarizado.
 
-http://stackoverflow.com/questions/9156928/can-error-in-opening-a-camera-be-fixed-in-android
+[snapshot2 - creación]
 
-http://stackoverflow.com/questions/1520887/how-to-pause-sleep-thread-or-process-in-android
+Posteriormente, si introduce el gesto que habría creado, se tomará una foto automáticamente a los tres segundos. Si introduce otro gesto no se tomará la foto.
 
-http://developer.android.com/intl/es/guide/topics/data/data-storage.html#filesExternal
+[snapshot3 - introduccion]
 
-http://developer.android.com/intl/es/reference/android/util/Log.html
+[snapshot4 - foto]
 
-# Enlaces 3
 
-http://stackoverflow.com/questions/4779954/disable-back-button-in-android
+## Implementación
 
-http://stackoverflow.com/questions/7493287/android-how-do-i-get-string-from-resources-using-its-name
+*Nota*: todo el código esta bastante documentado. La siguiente explicación es una breve descripción a muy alto nivel de como se ha implementado la aplicación.
 
-http://developer.android.com/intl/es/guide/topics/resources/accessing-resources.html#ResourcesFromCode
+La funcionalidad de esta app recae en dos actividades. La actividad *MainActivity* se encarga del manejo y procesamiento del gesto y la actividad *VistaPreviaCamara* se encarga de la toma de la foto y la previsualización de la misma.
+
+Hay que destacar que para el manejo del gesto se ha utilizado la librería [android-lockpattern](https://bitbucket.org/haibison/android-lockpattern) que lo simplifica enormemente. Para poder utilizarla en la aplicación es necesario previamente introducirla en los *build.gradle*. En el apartado [Bibliografía](https://github.com/ranea/AppsAndroid/tree/master/PuntoGestosFoto#bibliografía) se encuentra este procedimiento detallado.
+
+### MainActivity
+
+Y.
+
+### VistaPreviaCamara
+
+X.
+
+
+## Bibliografía
+
+### Android básico
+
+[Tutorial para empezar en Android](http://developer.android.com/training/basics/firstapp/index.html)
+
+[Componentes fundamentales](http://developer.android.com/intl/es/guide/components/fundamentals.html)
+
+### Android-lockpattern
+
+[Uso de la librería android-lockpattern](https://bitbucket.org/haibison/android-lockpattern/wiki/Quick-Use)
+
+### X
+
+[]()
+
+
+## Licencias externas
+
+Las imágenes utilizadas pertenece al conjunto de [Material icons](https://design.google.com/icons/) de Google. Disponen de licencia Creative Common Attribution 4.0 International License.
+
+Para crear los iconos de la aplicación en el launcher, se ha utilizado la herramienta [Launcher Icon Generator](https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html) de Roman Nurik, con licencia Apache.
