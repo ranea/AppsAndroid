@@ -30,14 +30,18 @@ public class BrujulaActivity extends Activity {
         Intent intent = getIntent();
         String mensaje = intent.getStringExtra(MainActivity.EXTRA_MENSAJE);
 
+        String[] partes = mensaje.split(" ");
+        String direccion = partes[0];
+        String error = partes[1];
+
         // Instaciamos la clase BrujulaData que se encargará de tomar los datos de los sensores
         brujulaData = new BrujulaData((SensorManager) getSystemService(SENSOR_SERVICE), this, mensaje);
 
         // Modifica el campo de texto que muestra la orientación que propuso el usuario
         // en el mensaje reconocido por voz.
-        // TODO seleccionar solo la 1º palabra
+
         TextView textoOrientacionDada = (TextView) findViewById(R.id.textoOrientacionDada);
-        textoOrientacionDada.setText(mensaje.toUpperCase());
+        textoOrientacionDada.setText(direccion.toUpperCase());
 
         textoOrientacionDispositivo = (TextView) findViewById(R.id.textoOrientacionDispositivo);
         imagenPuntero = (ImageView) findViewById(R.id.imagenPuntero);
@@ -59,9 +63,8 @@ public class BrujulaActivity extends Activity {
 
     // Modifica el campo de texto que muestra la orientación (en grados) del dispositivo
     // Se llama desde BrujulaData cada vez que el dispositivo tiene una nueva orientación
-    protected void editarTextoOrientacionDispositivo(float value, String msg) {
-        //textoOrientacionDispositivo.setText("Orientación: " + Float.toString(value));
-        textoOrientacionDispositivo.setText(msg);
+    protected void editarTextoOrientacionDispositivo(float value) {
+        textoOrientacionDispositivo.setText("Orientación: " + Float.toString(value));
     }
 
     // Aplica una animación al puntero para que se mueva desde la orientación

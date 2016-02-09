@@ -46,7 +46,6 @@ public class BrujulaData implements SensorEventListener {
         orientacion = new float[3];
         orientacionAnterior = 180f;
 
-        // TODO implementar calcularOrientacionDada()
         orientacionDada = calcularOrientacionDada(mensaje);
         margenError = calcularMargenError(mensaje);
     }
@@ -96,14 +95,14 @@ public class BrujulaData implements SensorEventListener {
             // Pasamos los azimut dados en radianes a grados
             float orientacionDispositivo = (float)(Math.toDegrees(azimut)+360)%360;
 
-            // TODO ELIMINAR REV FINAL. Cambiar tb el metodo editarTextoOrientacionDispositivo
             // Mostramos por pantalla la orientación
-            String debug = Float.toString(orientacionDispositivo) + ", "
-                    + Float.toString(orientacionDada-orientacionDispositivo) + "; "
-                    + Float.toString(orientacionAnterior) + ", "
-                    + Float.toString(-orientacionDispositivo);
-            brujulaActivity.editarTextoOrientacionDispositivo(1,debug);
-            //brujulaActivity.editarTextoOrientacionDispositivo(orientacionDispositivo);
+            brujulaActivity.editarTextoOrientacionDispositivo(orientacionDispositivo);
+            // TODO ELIMINAR REV FINAL. Cambiar tb el metodo editarTextoOrientacionDispositivo
+//            String debug = Float.toString(orientacionDispositivo) + ", "
+//                    + Float.toString(orientacionDada-orientacionDispositivo) + "; "
+//                    + Float.toString(orientacionAnterior) + ", "
+//                    + Float.toString(-orientacionDispositivo);
+//            brujulaActivity.editarTextoOrientacionDispositivo(1,debug);
 
             /*
              * Creamos una animación para que el puntero se mueva desde la orientación
@@ -112,16 +111,18 @@ public class BrujulaData implements SensorEventListener {
              * dicha animacion a la imagen del puntero.
              */
             // TODO arreglar la inestabilidad de la flecha (se debe cuando pasa de 359 a 1º, no maneja bien este salto)
-            RotateAnimation animacion = new RotateAnimation(
-                    orientacionAnterior,
-                    -(orientacionDispositivo+orientacionDada),
-                    Animation.RELATIVE_TO_SELF, 0.5f,
-                    Animation.RELATIVE_TO_SELF,
-                    0.5f);
-            animacion.setDuration(250);
-            animacion.setFillAfter(true);
-            brujulaActivity.iniciarAnimacionPuntero(animacion, esOrientacionBuena(orientacionDispositivo));
-
+            if (!((orientacionAnterior < -358 && orientacionDispositivo < 2 ) ||
+                    (orientacionDispositivo > 358 && orientacionAnterior < 2) )) {
+                RotateAnimation animacion = new RotateAnimation(
+                        orientacionAnterior,
+                        -(orientacionDispositivo + orientacionDada),
+                        Animation.RELATIVE_TO_SELF, 0.5f,
+                        Animation.RELATIVE_TO_SELF,
+                        0.5f);
+                animacion.setDuration(250);
+                animacion.setFillAfter(true);
+                brujulaActivity.iniciarAnimacionPuntero(animacion, esOrientacionBuena(orientacionDispositivo));
+            }
             // TODO porque esto es con menos?
             orientacionAnterior = -(orientacionDispositivo+orientacionDada);
         }
@@ -137,11 +138,14 @@ public class BrujulaData implements SensorEventListener {
      */
     // TODO implementar (lo siguiente es una chapuza y ni esta completo)
     protected float calcularOrientacionDada(String mensaje){
-        if (mensaje.startsWith("norte")) {
+        if (mensaje.startsWith("norte"))
             return 0;
-        }
+        else if (mensaje.startsWith("este"))
+            return 90;
         else if(mensaje.startsWith("sur"))
             return 180;
+        else if (mensaje.startsWith("oeste"))
+            return 270;
         else
             return 0;
     }
@@ -151,9 +155,10 @@ public class BrujulaData implements SensorEventListener {
      * calculamos el margen de error que hace referencia, esto es,
      * el número que se corresponde a la segunda palabra (en "norte diez", 10)
      */
-    // TODO implementar
     protected int calcularMargenError(String mensaje){
-        return 10;
+        String[] partes = mensaje.split(" ");
+
+        return Integer.parseInt(partes[1]);
     }
 
     /*
@@ -161,7 +166,6 @@ public class BrujulaData implements SensorEventListener {
      * a la orientación dada por el usuario al principio de la aplicación.
      * Para ello tenemos en cuenta el margen de error.
      */
-    // TODO margen de error se refiere a esto o a quitar el /2?
     protected boolean esOrientacionBuena(float orientacionDispositivo){
         return orientacionDada - margenError/2 <= orientacionDispositivo &&
                 orientacionDispositivo <= orientacionDada + margenError/2;

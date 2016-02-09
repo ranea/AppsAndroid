@@ -12,6 +12,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
     private static final int RECONOCIMIENTO_VOZ = 0;
@@ -63,7 +65,7 @@ public class MainActivity extends Activity {
             // esto es, el primero es el más acertado.
             ArrayList<String> resultadosReconocimiento = datos.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
-            String mensaje = resultadosReconocimiento.get(0).toString().toLowerCase();
+            String mensaje = resultadosReconocimiento.get(0).toLowerCase();
 
             // Mostramos en un mensaje efímero y emergente (un Toast) el texto reconocido.
             Toast.makeText(this, "Texto reconocido: " + mensaje, Toast.LENGTH_LONG).show();
@@ -72,7 +74,6 @@ public class MainActivity extends Activity {
             // TextView textView = (TextView) findViewById(R.id.mensaje_reconocido);
             // textView.setText(message);
 
-            // TODO implementar validarMensaje
             // Comprobamos que el mensaje es del tipo que buscamos
             if (validarMensaje(mensaje)){
                 // En caso afirmativo, lanzamos la actividad que contiene la brujula.
@@ -94,9 +95,14 @@ public class MainActivity extends Activity {
      *  - error debe ser un número entero
      */
     protected boolean validarMensaje(String mensaje){
-        // TODO implemetar aquí la validación del mensaje, esto es, que sea Norte + número
-        // TODO ELIMINAR EN REV FINAL. Forma cutre y no final de implementarlo
-        List<String> myList = Arrays.asList("norte", "sur", "este", "oeste");
-        return myList.contains(mensaje);
+        // Patrón que debe seguir el mensaje.
+        String patron = "norte|sur|este|oeste [0-9]+";
+
+        // Crear objeto patrón.
+        Pattern p = Pattern.compile(patron);
+
+        // Crear objeto matcher.
+        Matcher m = p.matcher(mensaje);
+        return m.find();
     }
 }
