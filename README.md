@@ -14,6 +14,7 @@ Ejemplo de PuntosGestosFoto:
 
 # TO DO (general)
 
+* [] Especificar el tema utilizado y el cambio de iconos
 * [ ] Realizar los layout
 * [ ] Picar 5º app
 * [ ] Elminar codigo comentado
