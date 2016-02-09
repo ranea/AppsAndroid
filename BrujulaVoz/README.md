@@ -7,7 +7,7 @@
 * [x] Spell-check ES para Atom.
 * [ ] Eliminar codigo comentado
 * [x] Añadir referencia a las imagenes e iconos utilizados (md)
-* [ ] Implementar los TO DO y documentar lo que se haya implementado
+* [ x] Implementar los TO DO y documentar lo que se haya implementado
 * [ ] Hacer el tutorial (con snapshot y gif). Esto lo último
 
 ## Descripción de la aplicación
@@ -50,7 +50,7 @@ Para lanzar el reconocimiento de voz, el usuario debe pulsar en la imagen del mi
 
 En este método se encuentra *iniciarReconocimientoVoz()*, que es el que se encarga de realizar el reconocimiento de voz. Internamente crea un Intent de tipo *RecognizerIntent.ACTION_RECOGNIZE_SPEECH* que se ejecutará en la misma actividad mediante *startActivityForResult()*.
 
-En *onActivityResult()* manejamos los datos que devuelve el módulo del reconocimiento de voz. Básicamente obtenemos un *String* de los datos devueltos y comprobamos en *validarMensaje()* que este String es de la forma `<dirección> <error>` donde:
+En *onActivityResult()* manejamos los datos que devuelve el módulo del reconocimiento de voz. Básicamente obtenemos un *String* de los datos devueltos y comprobamos en *validarMensaje()* (mediante expresiones regulares) que este String es de la forma `<dirección> <error>` donde:
  - `<dirección>` debe ser una de las siguientes palabras: norte, sur, este u oeste
  - `<error>` debe ser un número entero.
 
@@ -82,6 +82,8 @@ En dicho método se obtiene la orientación (concretamente el azimut) del dispos
 [Tutorial sencillo de reconocimiento de voz](http://www.jameselsey.co.uk/blogs/techblog/android-how-to-implement-voice-recognition-a-nice-easy-tutorial/)
 
 [Otro tutorial más complejo](http://www.truiton.com/2014/06/android-speech-recognition-without-dialog-custom-activity/)
+
+[Expresiones regulares](http://www.tutorialspoint.com/java/java_regular_expressions.htm)
 
 ### Brújula
 

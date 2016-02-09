@@ -14,14 +14,15 @@ Ejemplo de PuntosGestosFoto:
 
 # TO DO (general)
 
-* [] Especificar el tema utilizado y el cambio de iconos
+* [ ] Especificar el tema utilizado y el cambio de iconos
 * [ ] Realizar los layout
 * [ ] Picar 5º app
 * [ ] Elminar codigo comentado
 * [ ] Comentar código
 * [ ] Hacer el tutorial (con snapshot)
-* [ ] Añadir referencia a las imágenes e iconos utilizados (md)
-* [ ] Buscar un sonido libre y corto (menos de 1MB)
+* [x] Añadir referencia a las imágenes e iconos utilizados (md)
+* [x] Buscar un sonido libre y corto (menos de 1MB)
+* [ ] Cambiar mensajes a xml de strings
 
 # Guía de estilo
 
