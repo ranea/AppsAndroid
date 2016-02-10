@@ -20,6 +20,8 @@ Común a todas las app
 * [ ] Añadir las snapshot y el gif.
 * [ ] Especificar el tema utilizado y el cambio de iconos
 * [ ] Quitar enlaces.md
+* [ ] Corregir documentación del código
+
 
 * [ ] Picar 5º app
 
