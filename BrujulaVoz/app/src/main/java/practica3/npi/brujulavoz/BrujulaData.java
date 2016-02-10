@@ -6,7 +6,6 @@ import android.hardware.SensorManager;
 import android.hardware.SensorEventListener;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.widget.Toast;
 
 /*
  * Clase que maneja los sensores acelerómetro y magnetómetro.
@@ -97,20 +96,16 @@ public class BrujulaData implements SensorEventListener {
 
             // Mostramos por pantalla la orientación
             brujulaActivity.editarTextoOrientacionDispositivo(orientacionDispositivo);
-            // TODO ELIMINAR REV FINAL. Cambiar tb el metodo editarTextoOrientacionDispositivo
-//            String debug = Float.toString(orientacionDispositivo) + ", "
-//                    + Float.toString(orientacionDada-orientacionDispositivo) + "; "
-//                    + Float.toString(orientacionAnterior) + ", "
-//                    + Float.toString(-orientacionDispositivo);
-//            brujulaActivity.editarTextoOrientacionDispositivo(1,debug);
 
             /*
              * Creamos una animación para que el puntero se mueva desde la orientación
              * anterior del dispositivo a la actual. Para ello utilizamos RotateAnimation.
              * Posteriormente en iniciarAnimacionPuntero() le aplicaremos
              * dicha animacion a la imagen del puntero.
+             *
+             * Aplicamos la animación siempre que no se tenga el caso de que se pase
+             * de 359º a 1º (o viceversa) para evitar que la brújula haga giros innecesarios.
              */
-            // TODO arreglar la inestabilidad de la flecha (se debe cuando pasa de 359 a 1º, no maneja bien este salto)
             if (!((orientacionAnterior < -358 && orientacionDispositivo < 2 ) ||
                     (orientacionDispositivo > 358 && orientacionAnterior < 2) )) {
                 RotateAnimation animacion = new RotateAnimation(
@@ -123,7 +118,7 @@ public class BrujulaData implements SensorEventListener {
                 animacion.setFillAfter(true);
                 brujulaActivity.iniciarAnimacionPuntero(animacion, esOrientacionBuena(orientacionDispositivo));
             }
-            // TODO porque esto es con menos?
+
             orientacionAnterior = -(orientacionDispositivo+orientacionDada);
         }
     }
@@ -136,7 +131,6 @@ public class BrujulaData implements SensorEventListener {
      *  - Sur: 180
      *  -
      */
-    // TODO implementar (lo siguiente es una chapuza y ni esta completo)
     protected float calcularOrientacionDada(String mensaje){
         if (mensaje.startsWith("norte"))
             return 0;

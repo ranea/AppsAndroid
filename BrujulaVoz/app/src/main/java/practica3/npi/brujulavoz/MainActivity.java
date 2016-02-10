@@ -3,15 +3,12 @@ package practica3.npi.brujulavoz;
 import android.app.Activity;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,10 +20,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // TODO ELIMINAR EN REV FINAL
-        // El reconocimiento de voz se ejecuta una 1ª vez automáticamente.
-        // iniciarReconocimientoVoz();
         
         // Si no se reconoce el tipo de mensaje que se busca, se deja
         // al usuario que reintente el reconocimiento tocando el icono del micrófono.
@@ -49,7 +42,6 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        // TODO ¿necesario pasarlo al fichero string?
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Di una dirección cardinal y un margen de error");
         startActivityForResult(intent, RECONOCIMIENTO_VOZ);
     }
@@ -69,10 +61,6 @@ public class MainActivity extends Activity {
 
             // Mostramos en un mensaje efímero y emergente (un Toast) el texto reconocido.
             Toast.makeText(this, "Texto reconocido: " + mensaje, Toast.LENGTH_LONG).show();
-
-            // TODO ELIMINAR EN REV FINAL. En vez de Toast, usar un botón.
-            // TextView textView = (TextView) findViewById(R.id.mensaje_reconocido);
-            // textView.setText(message);
 
             // Comprobamos que el mensaje es del tipo que buscamos
             if (validarMensaje(mensaje)){
@@ -95,13 +83,11 @@ public class MainActivity extends Activity {
      *  - error debe ser un número entero
      */
     protected boolean validarMensaje(String mensaje){
-        // Patrón que debe seguir el mensaje.
+        // Usamos una expresión regular para validar el mensaje.
+        // Para usar una expreg en Java basta con crear un objeto pattern
+        // pasandole un String con la expreg y después llamar a matcher() y find()
         String patron = "norte|sur|este|oeste [0-9]+";
-
-        // Crear objeto patrón.
         Pattern p = Pattern.compile(patron);
-
-        // Crear objeto matcher.
         Matcher m = p.matcher(mensaje);
         return m.find();
     }

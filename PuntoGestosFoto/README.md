@@ -4,10 +4,8 @@
 
 ## TO DO
 
-* [ ] Eliminar código comentado
-* [ ] Implementar los TO DO y documentar lo que se haya implementado
-* [ ] Hacer el tutorial (con snapshot y gif). Esto lo último
-* [ ] Si hay tiempo, cambiar el orden (1ª vez que salte la creación; permitir el cambio de gesto si se ha introducido el anterior)
+* [ ] Pasar todos los String al fichero xml. (tb de los layout)
+* [ ] Añadir las snapshot y el gif.
 
 ## Descripción de la aplicación
 

@@ -44,33 +44,5 @@ public class VistaPreviaCamara extends SurfaceView implements SurfaceHolder.Call
     // Necesario definirlo pero no implementarlo en nuestro caso
     // (no permitimos cambios en la cámara ni en la surface)
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-        // TODO ELIMINAR EN REV FINAL.
-        /*
-        // If your preview can change or rotate, take care of those events here.
-        // Make sure to stop the preview before resizing or reformatting it.
-
-        if (surfaceHolder.getSurface() == null){
-            // preview surface does not exist
-            return;
-        }
-
-        // stop preview before making changes
-        try {
-            camara.stopPreview();
-        } catch (Exception e){
-            // ignore: tried to stop a non-existent preview
-        }
-
-        // set preview size and make any resize, rotate or
-        // reformatting changes here
-
-        // start preview with new settings
-        try {
-            camara.setPreviewDisplay(surfaceHolder);
-            camara.startPreview();
-
-        } catch (Exception e){
-            Log.d(TAG, "Error starting camara preview: " + e.getMessage());
-        }*/
     }
 }

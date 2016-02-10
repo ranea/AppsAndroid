@@ -12,17 +12,16 @@ Ejemplo de PuntosGestosFoto:
 
 ![animation](ejemploApp.gif)
 
-# TO DO (general)
+# TO DO
 
+Común a todas las app 
+
+* [ ] Pasar todos los String al fichero xml. (tb de los layout)
+* [ ] Añadir las snapshot y el gif.
 * [ ] Especificar el tema utilizado y el cambio de iconos
-* [ ] Realizar los layout
+* [ ] Quitar enlaces.md
+
 * [ ] Picar 5º app
-* [ ] Elminar codigo comentado
-* [ ] Comentar código
-* [ ] Hacer el tutorial (con snapshot)
-* [x] Añadir referencia a las imágenes e iconos utilizados (md)
-* [x] Buscar un sonido libre y corto (menos de 1MB)
-* [ ] Cambiar mensajes a xml de strings
 
 # Guía de estilo
 

@@ -4,11 +4,8 @@
 
 ## TO DO
 
-* [x] Spell-check ES para Atom.
-* [ ] Eliminar codigo comentado
-* [x] Añadir referencia a las imagenes e iconos utilizados (md)
-* [ x] Implementar los TO DO y documentar lo que se haya implementado
-* [ ] Hacer el tutorial (con snapshot y gif). Esto lo último
+* [ ] Pasar todos los String al fichero xml. (tb de los layout)
+* [ ] Añadir las snapshot y el gif.
 
 ## Descripción de la aplicación
 

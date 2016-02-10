@@ -66,12 +66,6 @@ public class MainActivity extends Activity {
                 // No hace falta hacer nada que ya se ha activado el AutoSavePattern
                 // y el gesto se guarda automáticamente
                 break;
-
-                // TODO ELIMINAR EN REV FINAL
-                //if (codigoResultado == RESULT_OK) {
-                //    char[] pattern = datos.getCharArrayExtra(LockPatternActivity.EXTRA_PATTERN);
-                //    Toast.makeText(this, "Pattern:\n" + pattern, Toast.LENGTH_LONG).show();
-                //}
             }
             case SOLICITUD_INTRODUCIR_GESTO: {
                 // hay 4 códigos de resultado que debemos de manejar

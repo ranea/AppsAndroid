@@ -61,10 +61,6 @@ public class CamaraActivity extends Activity {
             public void onPictureTaken(byte[] data, Camera camera) {
                 // Creamos el archivo (un Uri) que alojará la imagen
                 File pictureFile = obtenerArchivoMultimediaDeSalida(getString(R.string.app_name));
-                if (pictureFile == null){
-                    Log.d(TAG, "Error al crear el archivo media. Comprueba permisos de almacenamiento: ");
-                    return;
-                }
 
                 // Alojamos la imagen en dicho archivo
                 try {
@@ -121,10 +117,7 @@ public class CamaraActivity extends Activity {
 
         // Creamos el directorio anterior si no existe
         if (! carpetaFotos.exists()){
-            if (! carpetaFotos.mkdirs()){
-                Log.d(TAG, "Error al crear el directorio");
-                return null;
-            }
+            carpetaFotos.mkdirs();
         }
 
         // Creamos el nombre del archivo multimedia

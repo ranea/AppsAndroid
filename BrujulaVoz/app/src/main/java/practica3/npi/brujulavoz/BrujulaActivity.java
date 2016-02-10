@@ -2,14 +2,10 @@ package practica3.npi.brujulavoz;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,15 +72,9 @@ public class BrujulaActivity extends Activity {
         // En otro caso, lo dejamos azul.
         if (orientacionCorrecta){
             imagenPuntero.setImageDrawable(puntero_verde);
-            // TODO ELIMINAR EN REV FINAL
-            //int color = Color.parseColor("#008000"); //color verde
-            //imagenPuntero.setColorFilter(color);
         }
         else{
             imagenPuntero.setImageDrawable(puntero_azul);
-            // TODO ELIMINAR EN REV FINAL
-            //int color = Color.parseColor("#0000FF"); //color azul
-            //imagenPuntero.setColorFilter(color);
         }
 
         // Le aplicamos la animación al puntero

@@ -13,12 +13,10 @@ public class AcelerometroData implements SensorEventListener {
     private final Sensor acelerometro;
     private final MainActivity mainActivity;
 
-    // TODO usar esto bien
     private float[] datosAcelerometro;
     private float[] gravedad;
     private float[] aceleracionLineal;
     private final float filtroAlpha = 0.8f;
-    // TODO fijar el siguiente valor bien
     private final float aceleracionMinima = 3;
 
     /*
@@ -59,13 +57,16 @@ public class AcelerometroData implements SensorEventListener {
              * Isolamos la fuerza de la gravedad con el filtro paso-bajo (alpha).
              * Alpha se ha calculado como t/(t+dT), donde t es el filtro paso-bajo
              * constante en el tiempo y dT es la tasa de envíos de eventos.
+             *
+             * Solo utilizamos la primera componente de gravedad[] y aceleracionLineal[]
+             * que es la que se corresponde al eje de la X.
              */
-            gravedad[0] = filtroAlpha * gravedad[0] + (1 - filtroAlpha) * evento.values[0];
+            gravedad[0] = filtroAlpha * gravedad[0] + (1 - filtroAlpha) * datosAcelerometro[0];
             //gravedad[1] = filtroAlpha * gravedad[1] + (1 - filtroAlpha) * evento.values[1];
             //gravedad[2] = filtroAlpha * gravedad[2] + (1 - filtroAlpha) * evento.values[2];
 
             // Removemos la contribución de la gravedad con el filtro paso-alto
-            aceleracionLineal[0] = evento.values[0] - gravedad[0];
+            aceleracionLineal[0] = datosAcelerometro[0] - gravedad[0];
             //aceleracionLineal[1] = evento.values[1] - gravedad[1];
             //aceleracionLineal[2] = evento.values[2] - gravedad[2];
 
@@ -75,7 +76,6 @@ public class AcelerometroData implements SensorEventListener {
              * y utilizamos este valor para detectar el gesto que
              * activará el sonido
              */
-            // TODO PERFILAR CONDICION
             mainActivity.fijarTextoAceleracion(aceleracionLineal[0]);
             if (aceleracionLineal[0] > aceleracionMinima){
                 mainActivity.reproducirSonidoYAnimacion();
