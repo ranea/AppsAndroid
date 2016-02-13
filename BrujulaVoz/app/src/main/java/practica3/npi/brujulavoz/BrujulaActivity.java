@@ -26,22 +26,20 @@ public class BrujulaActivity extends Activity {
         Intent intent = getIntent();
         String mensaje = intent.getStringExtra(MainActivity.EXTRA_MENSAJE);
 
-        String[] partes = mensaje.split(" ");
-        String direccion = partes[0];
-        String error = partes[1];
-
         // Instaciamos la clase BrujulaData que se encargará de tomar los datos de los sensores
         brujulaData = new BrujulaData((SensorManager) getSystemService(SENSOR_SERVICE), this, mensaje);
 
-        // Modifica el campo de texto que muestra la orientación que propuso el usuario
-        // en el mensaje reconocido por voz.
-
+        // Muestra en campos de texto la orientación y el margen de error
+        // que dijo el usuario en el reconocimiento de voz
         TextView textoOrientacionDada = (TextView) findViewById(R.id.textoOrientacionDada);
-        textoOrientacionDada.setText(direccion.toUpperCase());
+        textoOrientacionDada.setText(mensaje.split(" ")[0].toUpperCase());
+        TextView textoError = (TextView) findViewById(R.id.textoError);
+        textoError.setText(mensaje.split(" ")[1].toUpperCase()+getString(R.string.grados));
 
         textoOrientacionDispositivo = (TextView) findViewById(R.id.textoOrientacionDispositivo);
         imagenPuntero = (ImageView) findViewById(R.id.imagenPuntero);
 
+        // variables para referenciar a las imagenes de las flechas
         puntero_azul = ResourcesCompat.getDrawable(getResources(), R.drawable.puntero_azul, null);
         puntero_verde = ResourcesCompat.getDrawable(getResources(), R.drawable.puntero_verde, null);
     }
@@ -60,7 +58,8 @@ public class BrujulaActivity extends Activity {
     // Modifica el campo de texto que muestra la orientación (en grados) del dispositivo
     // Se llama desde BrujulaData cada vez que el dispositivo tiene una nueva orientación
     protected void editarTextoOrientacionDispositivo(float value) {
-        textoOrientacionDispositivo.setText("Orientación: " + Float.toString(value));
+        textoOrientacionDispositivo.setText(getString(R.string.orientacion) + Float.toString(value)
+                                            +getString(R.string.grados));
     }
 
     // Aplica una animación al puntero para que se mueva desde la orientación

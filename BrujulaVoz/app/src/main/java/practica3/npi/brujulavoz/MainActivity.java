@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Di una dirección cardinal y un margen de error");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.ayuda_prompt));
         startActivityForResult(intent, RECONOCIMIENTO_VOZ);
     }
 
@@ -57,10 +57,11 @@ public class MainActivity extends Activity {
             // esto es, el primero es el más acertado.
             ArrayList<String> resultadosReconocimiento = datos.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
+
             String mensaje = resultadosReconocimiento.get(0).toLowerCase();
 
             // Mostramos en un mensaje efímero y emergente (un Toast) el texto reconocido.
-            Toast.makeText(this, "Texto reconocido: " + mensaje, Toast.LENGTH_LONG).show();
+            // Toast.makeText(this, getString(R.string.texto_reconocido) + mensaje, Toast.LENGTH_LONG).show();
 
             // Comprobamos que el mensaje es del tipo que buscamos
             if (validarMensaje(mensaje)){
@@ -70,7 +71,7 @@ public class MainActivity extends Activity {
                 intent.putExtra(EXTRA_MENSAJE, mensaje);
                 startActivity(intent);
             }else{
-                Toast.makeText(this, "Debe decir algo del tipo: " + "norte 10", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.ejemplo_texto_reconocido) + mensaje, Toast.LENGTH_LONG).show();
             }
         }
 
@@ -86,9 +87,9 @@ public class MainActivity extends Activity {
         // Usamos una expresión regular para validar el mensaje.
         // Para usar una expreg en Java basta con crear un objeto pattern
         // pasandole un String con la expreg y después llamar a matcher() y find()
-        String patron = "norte|sur|este|oeste [0-9]+";
+        String patron = "(norte|sur|este|oeste)\\s\\d+";
         Pattern p = Pattern.compile(patron);
         Matcher m = p.matcher(mensaje);
-        return m.find();
+        return m.matches();
     }
 }

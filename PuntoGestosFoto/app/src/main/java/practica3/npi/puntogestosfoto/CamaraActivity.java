@@ -50,7 +50,7 @@ public class CamaraActivity extends Activity {
                 // Mostramos al usuario donde se ha guardado la foto
                 String path = Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_PICTURES) + getString(R.string.app_name);
-                Toast.makeText(CamaraActivity.this, "Imagen guardada en: " + path, Toast.LENGTH_LONG).show();
+                Toast.makeText(CamaraActivity.this, getString(R.string.imagen_guardada) + path, Toast.LENGTH_LONG).show();
             }
         }, 3000);
 

@@ -15,8 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"
-        android:text="Orientación: 0º" />
+        android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/imagenPuntero"
@@ -31,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="Endereza la flecha para orientarte al:"
+        android:text="@string/texto_endereza"
         android:layout_above="@+id/textoOrientacionDada"
         android:layout_centerHorizontal="true" />
 
@@ -40,7 +39,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="Norte"
+        android:layout_above="@+id/textoAyudaError"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textoAyudaError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="@string/texto_error"
+        android:layout_above="@+id/textoError"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textoError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:textStyle="bold" />

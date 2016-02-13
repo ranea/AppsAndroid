@@ -40,7 +40,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // create Intent to take a picture and return control to the calling application
+        Intent intent2 = new Intent(this, NavegacionActivity.class);
+        startActivity(intent2);
+
+/*        // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_MESSAGE, thisCode.rawValue);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 

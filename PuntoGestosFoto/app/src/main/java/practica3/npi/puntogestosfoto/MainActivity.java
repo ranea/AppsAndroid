@@ -77,11 +77,9 @@ public class MainActivity extends Activity {
                         break;
                     case RESULT_CANCELED:
                         // El usuario canceló la tarea
-                        Toast.makeText(this, "Tarea cancelada", Toast.LENGTH_LONG).show();
                         break;
                     case LockPatternActivity.RESULT_FAILED:
                         // El usuario introdujo un gesto incorrecto
-                        Toast.makeText(this, "Gesto incorrecto", Toast.LENGTH_LONG).show();
                         break;
                 }
 

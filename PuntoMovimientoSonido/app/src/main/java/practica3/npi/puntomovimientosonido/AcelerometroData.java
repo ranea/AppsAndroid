@@ -14,6 +14,7 @@ public class AcelerometroData implements SensorEventListener {
     private final MainActivity mainActivity;
 
     private float[] datosAcelerometro;
+    private float[] datosAcelerometroAnterior;
     private float[] gravedad;
     private float[] aceleracionLineal;
     private final float filtroAlpha = 0.8f;
@@ -33,6 +34,7 @@ public class AcelerometroData implements SensorEventListener {
         datosAcelerometro = null;
         gravedad = new float[3];
         aceleracionLineal = new float[3];
+        datosAcelerometroAnterior = new float[] {0,0,0};
     }
 
     protected void onResume() {
@@ -77,9 +79,13 @@ public class AcelerometroData implements SensorEventListener {
              * activará el sonido
              */
             mainActivity.fijarTextoAceleracion(aceleracionLineal[0]);
-            if (aceleracionLineal[0] > aceleracionMinima){
+            if (aceleracionLineal[0] > aceleracionMinima && datosAcelerometroAnterior[0] < aceleracionMinima){
                 mainActivity.reproducirSonidoYAnimacion();
             }
+
+            datosAcelerometroAnterior[0] = datosAcelerometro[0];
+            // datosAcelerometroAnterior[1] = datosAcelerometro[1];
+            // datosAcelerometroAnterior[2] = datosAcelerometro[2];
         }
     }
 

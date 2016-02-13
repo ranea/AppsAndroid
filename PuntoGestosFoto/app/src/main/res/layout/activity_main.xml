@@ -13,7 +13,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crear gesto"
+        android:text="@string/crear_gesto"
         android:id="@+id/botonCrearGesto"
         android:layout_above="@+id/space"
         android:layout_centerHorizontal="true" />
@@ -28,7 +28,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Introducir gesto"
+        android:text="@string/introducir_gesto"
         android:id="@+id/botonIntroducirGesto"
         android:layout_below="@+id/space"
         android:layout_centerHorizontal="true"/>

@@ -72,6 +72,8 @@ En dicho método se obtiene la orientación (concretamente el azimut) del dispos
 
 [Componentes fundamentales](http://developer.android.com/intl/es/guide/components/fundamentals.html)
 
+[Acceder a los strings del xml](http://developer.android.com/intl/es/guide/topics/resources/string-resource.html)
+
 ### Reconocimiento de voz
 
 [Parámetros del RecognizerIntent](http://developer.android.com/intl/es/reference/android/speech/RecognizerIntent.html)

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PuntoMovimientoSonido</string>
+    <string name="aceleracion">Aceleración: </string>
+    <string name="ayuda">Agita el dispositivo hacia un lado</string>
 </resources>

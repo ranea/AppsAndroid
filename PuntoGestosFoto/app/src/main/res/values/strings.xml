@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">PuntoGestosFoto</string>
+    <string name="imagen_guardada">Imagen guardada en: </string>
+    <string name="crear_gesto">Crear gesto</string>
+    <string name="introducir_gesto">Introducir gesto</string>
 </resources>

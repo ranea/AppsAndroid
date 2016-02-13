@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BrujulaVoz</string>
+    <string name="ayuda_prompt">Di una dirección cardinal y un margen de error</string>
+    <string name="texto_reconocido">Texto reconocido: </string>
+    <string name="ejemplo_texto_reconocido">"Debe decir algo del tipo: norte 10. \nUsted dijo: "</string>
+    <string name="ayuda_icono">Toca el micrófono para iniciar el reconocimiento de voz</string>
+    <string name="orientacion">Orientación: </string>
+    <string name="texto_endereza">Endereza la flecha para orientarte al:</string>
+    <string name="texto_error">con un margen de error de:</string>
+    <string name="grados">º</string>
 </resources>

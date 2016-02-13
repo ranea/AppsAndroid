@@ -14,7 +14,7 @@
         android:id="@+id/textoInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Toca el micrófono para iniciar el reconocimiento de voz"
+        android:text="@string/ayuda_icono"
         android:textSize="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

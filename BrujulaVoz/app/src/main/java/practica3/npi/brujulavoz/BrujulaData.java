@@ -110,7 +110,7 @@ public class BrujulaData implements SensorEventListener {
                     (orientacionDispositivo > 358 && orientacionAnterior < 2) )) {
                 RotateAnimation animacion = new RotateAnimation(
                         orientacionAnterior,
-                        -(orientacionDispositivo + orientacionDada),
+                        -(orientacionDispositivo - orientacionDada),
                         Animation.RELATIVE_TO_SELF, 0.5f,
                         Animation.RELATIVE_TO_SELF,
                         0.5f);
@@ -119,7 +119,7 @@ public class BrujulaData implements SensorEventListener {
                 brujulaActivity.iniciarAnimacionPuntero(animacion, esOrientacionBuena(orientacionDispositivo));
             }
 
-            orientacionAnterior = -(orientacionDispositivo+orientacionDada);
+            orientacionAnterior = -(orientacionDispositivo-orientacionDada);
         }
     }
 
@@ -129,7 +129,7 @@ public class BrujulaData implements SensorEventListener {
      *  - Norte: 0
      *  - Este: 90
      *  - Sur: 180
-     *  -
+     *  - Oeste: 270
      */
     protected float calcularOrientacionDada(String mensaje){
         if (mensaje.startsWith("norte"))
@@ -161,8 +161,17 @@ public class BrujulaData implements SensorEventListener {
      * Para ello tenemos en cuenta el margen de error.
      */
     protected boolean esOrientacionBuena(float orientacionDispositivo){
-        return orientacionDada - margenError/2 <= orientacionDispositivo &&
+        boolean condicion_normal = orientacionDada - margenError/2 <= orientacionDispositivo &&
                 orientacionDispositivo <= orientacionDada + margenError/2;
+
+        if (orientacionDada == 0){
+            boolean condicion_norte_extra = 360 - margenError/2 <= orientacionDispositivo &&
+                    orientacionDispositivo <= 360 + margenError/2;
+
+            return condicion_normal || condicion_norte_extra;
+        } else{
+            return condicion_normal;
+        }
     }
 
     // Esta función necesita estar definida aunque no es necesario implementarla en nuestro caso

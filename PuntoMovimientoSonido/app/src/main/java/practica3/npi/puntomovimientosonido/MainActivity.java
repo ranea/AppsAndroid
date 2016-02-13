@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
     // Modifica el TextView que contiene la aceleración lineal en el eje X
     // que posee el dispositivo en el momento. Se llama desde AcelerometroData
     protected void fijarTextoAceleracion(float aceleracion) {
-        textoAceleracion.setText("Aceleración: " + Float.toString(aceleracion));
+        textoAceleracion.setText(getString(R.string.aceleracion) + Float.toString(aceleracion));
     }
 
     // Reproduce el sonido y realiza la animación de agitar el icono del móvil
