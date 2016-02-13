@@ -5,7 +5,6 @@
 ## TO DO
 
 * [ ] Añadir las snapshot y el gif.
-* [ ] Revisar licencia JumpingJack
 
 ## Descripción de la aplicación
 
