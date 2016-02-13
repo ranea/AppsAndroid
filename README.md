@@ -6,7 +6,7 @@ Conjunto de aplicaciones Android de diversas funcionalidades.
  - [PuntosGPSQR](https://github.com/ranea/AppsAndroid/tree/master/PuntoGPSQR)
  - [PuntosGestosFoto](https://github.com/ranea/AppsAndroid/tree/master/PuntoGestosFoto)
  - [PuntosMovimientoSonido](https://github.com/ranea/AppsAndroid/tree/master/PuntoMovimientoSonido)
- - [AppSorpresa]()
+ - [NPISaltitos](https://github.com/ranea/AppsAndroid/tree/master/NPISaltitos)
 
 Ejemplo de PuntosGestosFoto:
 
@@ -14,7 +14,7 @@ Ejemplo de PuntosGestosFoto:
 
 # TO DO
 
-Común a todas las app 
+Común a todas las app
 
 * [ ] Pasar todos los String al fichero xml. (tb de los layout)
 * [ ] Añadir las snapshot y el gif.
@@ -23,7 +23,7 @@ Común a todas las app
 * [ ] Corregir documentación del código
 
 
-* [ ] Picar 5º app
+* [x] Picar 5º app
 
 # Guía de estilo
 
