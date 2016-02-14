@@ -1,11 +1,7 @@
 # PuntoMovimientoSonido
 
-[gif]
+![gif](ejemplo.gif)
 
-## TO DO
-
-* [ ] Pasar todos los String al fichero xml. (tb de los layout)
-* [ ] Añadir las snapshot y el gif.
 
 ## Descripción de la aplicación
 
@@ -13,7 +9,7 @@ La aplicación PuntoMovimientoSonido es una aplicación sencilla para Android qu
 
 Una vez iniciada la app, siempre que el usuario desplace su dispositivo horizontalmente con una cierta velocidad, se reproducirá un sonido y el icono del móvil en la pantalla se agitará levemente.
 
-[snapshot1]
+![snapshot1](snapshot/snapshot1.png)
 
 
 ## Implementación

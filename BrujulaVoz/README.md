@@ -1,27 +1,24 @@
 # BrujulaVoz
 
-[gif]
-
-## TO DO
-
-* [ ] Pasar todos los String al fichero xml. (tb de los layout)
-* [ ] Añadir las snapshot y el gif.
+![gif](ejemplo.gif)
 
 ## Descripción de la aplicación
 
 La aplicación BrujulaVoz es una aplicación sencilla para Android que hace uso del reconocimiento de voz y de los sensores acelerómetro y magnetómetro.
+
+![snapshot0 - inicio](snapshot/snapshot0.png)
 
 Primeramente, se le pedirá al usuario que le diga a la aplicación por voz una dirección y un margen de error, por ejemplo:
  - norte diez
  - sur treinta y nueve
 
 
-[snapshot1 - OKgoogle]
+![snapshot1 - reconocimiento de voz](snapshot/snapshot1.png)
 
 Con estos datos, aparecerá una flecha que actuará de brújula. La flecha se gira a la par que se va girando el dispositivo y cuando la flecha está enderezada, el dispositivo apunta hacia donde dijera el usuario en el primer paso
 (norte o sur en los ejemplos).
 
-[snapshot2 - azul]
+![snapshot2 - puntero azul](snapshot/snapshot2.png)
 
 Además, la flecha se pondrá de color verde cuando el dispositivo esté en la orientación correcta dentro del margen de error. Lo vemos con un ejemplo:
  - Supongamos que el usuario dijo "norte diez".
@@ -29,7 +26,7 @@ Además, la flecha se pondrá de color verde cuando el dispositivo esté en la o
  - Esto quiere decir que la flecha estará verde cuando esté completamente enderezada (0 grados), levemente hacia la izquierda (hasta -5 grados) o levemente hacia la derecha (hasta +5 grados).
 
 
-[snapshot3 - verde]
+![snapshot3 - puntero verde](snapshot/snapshot3.png)
 
 Si por el contrario el usuario hubiera dicho "sur 45", la flecha se pondría verde cuando estuviera enderezada (ahora se da cuando el dispositivo está a 180º), y como el margen de error es elevado, seguiría verde aunque se moviera el dispositivo un poco hacia algún lado.
 
