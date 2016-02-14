@@ -8,7 +8,7 @@ Conjunto de aplicaciones Android de diversas funcionalidades.
  - [PuntoMovimientoSonido](https://github.com/ranea/AppsAndroid/tree/master/PuntoMovimientoSonido)
  - [NPISaltitos](https://github.com/ranea/AppsAndroid/tree/master/NPISaltitos)
 
-Ejemplo de PuntosGestosFoto:
+Capturas de pantalla de las aplicaciones.
 
 ![BrujulaVoz](BrujulaVoz/snapshot/snapshot3.png)
 ![PuntoGestosFoto](PuntoGestosFoto/snapshot/snapshot3.png)
