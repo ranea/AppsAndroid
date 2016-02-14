@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent2 = new Intent(this, NavegacionActivity.class);
         startActivity(intent2);
 
-/*        // create Intent to take a picture and return control to the calling application
+        // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
@@ -88,19 +88,19 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_MESSAGE, thisCode.rawValue);
                 startActivity(intent);
             }
-        });*/
+        });
 
     }
 
-/*    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
-    *//** Create a file Uri for saving an image or video *//*
+    /** Create a file Uri for saving an image or video */
     private static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
     }
 
-    *//** Create a File for saving an image or video *//*
+    /** Create a File for saving an image or video */
     private static File getOutputMediaFile(int type){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return mediaFile;
-    }*/
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

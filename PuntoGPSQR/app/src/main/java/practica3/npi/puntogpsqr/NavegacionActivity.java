@@ -28,6 +28,9 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import android.graphics.Color;
 
 import org.w3c.dom.Text;
 
@@ -209,19 +212,20 @@ public class NavegacionActivity extends FragmentActivity implements
 
     public void updateUI() {
         if (mCurrentLocation != null) {
-            LatLng tmp = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-//            TextView mLatitudeText = (TextView) findViewById(R.id.mLatitudeText);
-//            mLatitudeText.setText(String.valueOf(mCurrentLocation.getLatitude()));
-//            TextView mLongitudeText = (TextView) findViewById(R.id.mLongitudeText);
-//            mLongitudeText.setText(String.valueOf(mCurrentLocation.getLongitude()));
-//
-//            TextView mLastUpdateTimeTextView = (TextView) findViewById(R.id.mLastUpdateTimeTextView);
-//            mLastUpdateTimeTextView.setText(mLastUpdateTime);
+            Log.d("GPSQR", "Añadiendo localización");
+            LatLng actual = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+            mapa.addMarker(new MarkerOptions().title("Punto " + mListLocations.size()).position(actual));
 
-            Log.w("GPSQR", "Añadiendo localización");
-            mapa.addMarker(new MarkerOptions().title("Punto ").position(tmp));
+            if (mListLocations.size() >= 2){
+                Location loc_anterior = mListLocations.get(mListLocations.size() - 2);
+                LatLng anterior = new LatLng(loc_anterior.getLatitude(), loc_anterior.getLongitude() ); // Tomar el anterior, el actual es - 1
+
+                mapa.addPolyline(new PolylineOptions().add(anterior, actual)
+                        .width(10)
+                        .color(Color.RED));
+            }
         }
         else
-            Log.w("GPSQR", "No hay localización!");
+            Log.d("GPSQR", "No hay localización!");
     }
 }

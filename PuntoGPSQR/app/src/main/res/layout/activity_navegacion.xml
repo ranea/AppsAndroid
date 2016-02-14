@@ -9,39 +9,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="practica3.npi.puntogpsqr.NavegacionActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/mLatitudeText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="43dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/mLongitudeText"
-        android:layout_below="@+id/mLatitudeText"
-        android:layout_alignStart="@+id/mLatitudeText"
-        android:layout_marginTop="30dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/mLastUpdateTimeTextView"
-        android:layout_below="@+id/mLongitudeText"
-        android:layout_alignStart="@+id/mLongitudeText"
-        android:layout_marginTop="56dp" />
-
     <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.MapFragment"
         android:id="@+id/mapa"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/mLastUpdateTimeTextView" />
+        android:layout_centerVertical="true" />
 </RelativeLayout>
