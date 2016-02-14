@@ -3,6 +3,7 @@ package practica3.npi.puntogpsqr;
 
 import android.content.Intent;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.location.Location;
@@ -49,15 +50,24 @@ public class NavegacionActivity extends FragmentActivity implements
     private LocationRequest mLocationRequest;
     private String mLastUpdateTime;
 
+    private double latitud, longitud;
+
     private GoogleMap mapa;
     private ArrayList<Location> mListLocations;
 
     private boolean mRequestingLocationUpdates = true;
 
+    private Intent mapIntent = new Intent(); //Intent que lanza la aplicación de GPS
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navegacion);
+
+        Intent intent = getIntent();
+        String mensaje = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+        obtenerCoordenadas(mensaje);
 
         // Create an instance of GoogleAPIClient.
         if (mGoogleApiClient == null) {
@@ -77,7 +87,22 @@ public class NavegacionActivity extends FragmentActivity implements
 
 //        updateValuesFromBundle(savedInstanceState);
 
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + Double.toString(latitud) + "," + Double.toString(longitud) + "&mode=w");
 
+        //Lanzamos Google Maps con dicha petición
+        mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+
+
+    }
+
+    public void obtenerCoordenadas(String textoCoordenadas) {
+        textoCoordenadas = textoCoordenadas.replace("LATITUD_", "");
+        textoCoordenadas = textoCoordenadas.replace("_LONGITUD_", " ");
+        String[] coordinates = textoCoordenadas.split(" ");
+        latitud = Double.parseDouble(coordinates[0]);
+        longitud = Double.parseDouble(coordinates[1]);
     }
 
 //    private void updateValuesFromBundle(Bundle savedInstanceState) {
