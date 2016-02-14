@@ -7,17 +7,17 @@
 
 La aplicación PuntoGestosFoto es una aplicación sencilla para Android que hace uso de reconocimiento de gestos para lanzar una foto automáticamente.
 
-![snapshot1 -  menu](snapshot/snapsho1.png)
+![snapshot1 -  menu](snapshot/snapshot1.png)
 
 En primer lugar, el usuario deberá crear un gesto. El gesto es análogo al patrón que usa Android en el bloqueo de pantalla y el procedimiento para crearlo es similar. Para el usuario será fácil pues está ya familiarizado.
 
-![snapshot2 - creación](snapshot/snapsho2.png)
+![snapshot2 - creación](snapshot/snapshot2.png)
 
 Posteriormente, si introduce el gesto que habría creado, se tomará una foto automáticamente a los tres segundos. Si introduce otro gesto no se tomará la foto.
 
-![snapshot3 - introduccion](snapshot/snapsho3.png)
+![snapshot3 - introduccion](snapshot/snapshot3.png)
 
-![snapshot4 - foto](snapshot/snapsho4.png)
+![snapshot4 - foto](snapshot/snapshot4.png)
 
 
 ## Implementación
