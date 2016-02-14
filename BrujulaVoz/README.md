@@ -11,6 +11,8 @@
 
 La aplicación BrujulaVoz es una aplicación sencilla para Android que hace uso del reconocimiento de voz y de los sensores acelerómetro y magnetómetro.
 
+[snapshot0 - inicio]
+
 Primeramente, se le pedirá al usuario que le diga a la aplicación por voz una dirección y un margen de error, por ejemplo:
  - norte diez
  - sur treinta y nueve
