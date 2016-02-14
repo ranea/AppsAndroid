@@ -23,14 +23,5 @@ Común a todas las app
 * [ ] Especificar el tema utilizado y el cambio de iconos
 * [x] Quitar enlaces.md
 * [ ] Corregir documentación del código
-
-
 * [x] Picar 5º app
 
-# Guía de estilo
-
-- Todos los nombres de las variables y funciones en *español* (a no ser que sea uno propio de Android/java)
-- Para comentarios largos (3+ lineas, usar):
-/*
- *
- */
