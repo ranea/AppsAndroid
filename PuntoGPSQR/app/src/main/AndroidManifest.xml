@@ -33,6 +33,10 @@
         <activity android:name=".NavegacionActivity"></activity>
 
         <service android:name=".TimeService"/>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAkJ0-drmKZak09DFjj5n6OJxvmSGoIqyk"/>
     </application>
 
 </manifest>
