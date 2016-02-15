@@ -46,7 +46,7 @@ import java.util.Date;
 public class NavegacionActivity extends FragmentActivity implements
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
     // TODO change name
-    private static final int INTENT_V1 = 1;
+    private static final int NAVIGATION_REQUEST_CODE = 100;
 
     private GoogleApiClient mGoogleApiClient;
     private Location mCurrentLocation;
@@ -95,7 +95,7 @@ public class NavegacionActivity extends FragmentActivity implements
         //Lanzamos Google Maps con dicha petición
         mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapIntent);
+        startActivityForResult(mapIntent,NAVIGATION_REQUEST_CODE);
 
 
     }
@@ -200,13 +200,17 @@ public class NavegacionActivity extends FragmentActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LatLng actual;
-        for (int i = 0; i < mListLocations.size(); i++){
-            actual = mListLocations.get(i);
-            mapa.addMarker(new MarkerOptions().title("Punto " + Integer.toString(i)).position(actual));
-        }
+        if (requestCode == NAVIGATION_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                LatLng actual;
+                for (int i = 0; i < mListLocations.size(); i++) {
+                    actual = mListLocations.get(i);
+                    mapa.addMarker(new MarkerOptions().title("Punto " + Integer.toString(i)).position(actual));
+                }
 
-        mapa.addPolyline(new PolylineOptions().addAll(mListLocations).color(Color.RED));
+                mapa.addPolyline(new PolylineOptions().addAll(mListLocations).color(Color.RED));
+            }
+        }
 
     }
 
