@@ -33,3 +33,19 @@ http://stackoverflow.com/questions/2662531/launching-google-maps-directions-via-
 http://stackoverflow.com/questions/2662531/launching-google-maps-directions-via-an-intent-on-android
 
 http://stackoverflow.com/questions/13255192/android-google-navigation-intent-modes
+
+# Enlaces 4
+
+http://stackoverflow.com/questions/35395724/send-data-from-service-to-bound-activity-periodically
+
+http://developer.android.com/intl/es/reference/android/util/SparseIntArray.html#valueAt(int)
+
+http://greenrobot.org/eventbus/documentation/how-to-get-started/
+
+https://developers.google.com/android/reference/com/google/android/gms/vision/package-summary
+
+https://developers.google.com/android/reference/com/google/android/gms/vision/barcode/BarcodeDetector#detect(com.google.android.gms.vision.Frame)
+
+http://developer.android.com/intl/es/guide/components/services.html#ExtendingService
+
+http://developer.android.com/intl/es/guide/topics/manifest/activity-element.html#lmode
