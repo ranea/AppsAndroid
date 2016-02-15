@@ -1,9 +1,5 @@
 package practica3.npi.puntogpsqr;
 
-/**
- * Created by Antonio on 15/02/2016.
- */
-
 import android.app.Service;
 import android.content.Intent;
 import android.location.Location;

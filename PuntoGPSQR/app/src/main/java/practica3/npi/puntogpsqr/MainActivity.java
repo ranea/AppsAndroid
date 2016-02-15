@@ -56,18 +56,19 @@ public class MainActivity extends Activity {
 
     }
 
-    // create Intent to take a picture and return control to the calling application
-    // start the image capture Intent
+    // Crea un intent para tomar una foto y devuelve el control a esta Activity
     protected void tomarFoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CODIGO_SOLICITUD_TOMAR_IMAGEN);
     }
 
+
+    // Maneja los resultados de la Activity del reconocimiento de voz.
     @Override
     protected void onActivityResult(int codigoSolicitud, int codigoResultado, Intent datos) {
         if (codigoSolicitud == CODIGO_SOLICITUD_TOMAR_IMAGEN) {
             if (codigoResultado == RESULT_OK) {
-                // Tomamos la foto
+                // Guardamos la foto en un objeto Bitmap
                 Bitmap foto = (Bitmap) datos.getExtras().get("data");
 
                 // Le pasamos el detector de QR
@@ -75,6 +76,7 @@ public class MainActivity extends Activity {
                 SparseArray<Barcode> barcodes = detectorQR.detect(frame);
 
                 if (barcodes.size() == 0){
+                    // No detectó QR
                     Toast.makeText(MainActivity.this, getString(R.string.no_qr_encontrado), Toast.LENGTH_LONG).show();
                 }
                 else{
@@ -87,28 +89,26 @@ public class MainActivity extends Activity {
                         startActivity(intent);
                     }
                     else{
+                        // No detectó la latitud y la longitud en el mensaje
                         Toast.makeText(MainActivity.this, getString(R.string.qr_incorrecto), Toast.LENGTH_LONG).show();
                     }
                 }
 
 
             } else if (codigoResultado == RESULT_CANCELED) {
-                // User cancelled the image capture
+                // Usuario canceló la imagen
             } else {
-                // Image capture failed, advise user
+                // Captura de imagen fallida
             }
         }
     }
 
-    /**
-     * Comprueba que el contenido del mensaje es de la forma "LATITUD_<lat>_LONGITUD_<lng>"
-     * donde lat y lng son números
-     */
+    // Comprueba que el contenido del mensaje es de la forma "LATITUD_<lat>_LONGITUD_<lng>"
+    // donde lat y lng son números
     protected boolean validarMensaje(String mensaje){
         // Usamos una expresión regular para validar el mensaje.
         // Para usar una expreg en Java basta con crear un objeto pattern
         // pasandole un String con la expreg y después llamar a matcher() y find()
-        // Ejemplo de mensaje: LATITUD_37.19678168548899_LONGITUD_-3.62465459523194
         String patron = "LATITUD_-?\\d+\\.\\d+_LONGITUD_-?\\d+\\.\\d+";
         Pattern p = Pattern.compile(patron);
         Matcher m = p.matcher(mensaje);

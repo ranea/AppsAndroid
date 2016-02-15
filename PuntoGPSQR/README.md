@@ -1,6 +1,5 @@
 ![PuntoGPSQR](app/src/main/res/mipmap-hdpi/ic_launcher.png)
 
-
 # PuntoGPSQR
 
 [gif]
@@ -12,9 +11,21 @@
 
 ## Descripción de la aplicación
 
-La aplicación PuntoGPSQR es una aplicación sencilla para Android que, usando la cámara y el GPS, captura un código QR con unas coordenadas y arranca la navegación hacia dicho punto. Mientras tanto, se van tomando localizaciones cada 10 segundos para mostrar la ruta final en un mapa al terminar la navegación.
+La aplicación PuntoGPSQR es una aplicación sencilla que hace uso de la cárama, reconocimiento de QRs y el GPS.
 
-[snapshots]
+[snapshot - inicio app]
+
+Primeramente, el usuario deberá echarle una foto a un QR que disponga de una latitud y una longitud.
+
+[snapshot - fotoQR]
+
+Si el QR dispone de tal información, se procesará automaticámente y se lanzará *Google Navigation* para realización una navegación GPS hacia el punto que indicaba el QR.
+
+[snapshot - googleNavigation]
+
+Además, mientras se muestra indicaciones para relizar el recorrido, se va guardando periódicamente la localización del usuario. Así, cuando el recorrido termina, se muestra en un mapa el recorrido realizado por el usuario.
+
+[snapshot - mapa con el recorrido del usuario]
 
 
 ## Implementación
@@ -22,7 +33,7 @@ La aplicación PuntoGPSQR es una aplicación sencilla para Android que, usando l
 *Nota*: todo el código esta bastante documentado. La siguiente explicación es una breve descripción a muy alto nivel de como se ha implementado la aplicación.
 
 
-La primera parte de la aplicación es la correspondiente a la actividad *MainActivity*.
+La primera parte de la aplicación es la correspondiente a la actividad *MainActivity*
 
 ### MainActivity
 
