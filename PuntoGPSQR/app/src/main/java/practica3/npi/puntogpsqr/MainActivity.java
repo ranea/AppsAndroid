@@ -29,14 +29,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO quitar modo debug en REV FINAL
-        // Comentar/descomentar el sig bloque para debug
-        Intent intentDebug = new Intent(this, NavegacionActivity.class);
-        String msgDebug = "LATITUD_37.19678168548899_LONGITUD_-3.62465459523194 ";
-        intentDebug.putExtra(EXTRA_MENSAJE, msgDebug);
-        startActivity(intentDebug);
-
-        // Iniciamos el lector de QR
+        // Iniciamos el detector de QR
         detectorQR =
                 new BarcodeDetector.Builder(getApplicationContext())
                         .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)

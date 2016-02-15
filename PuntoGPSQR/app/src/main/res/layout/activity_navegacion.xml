@@ -11,23 +11,6 @@
         android:name="com.google.android.gms.maps.MapFragment"
         android:id="@+id/mapa"
         android:layout_centerVertical="true" >
-
-    <Button
-        android:id="@+id/nuevaRuta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nueva_ruta"
-        android:layout_gravity="center_horizontal|bottom"
-        android:padding="32dp"/>
-
-    <Button
-        android:id="@+id/mostrarRutaas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mostrar rutas"
-        android:layout_gravity="center_horizontal|top"
-        android:padding="32dp"/>
-
     </fragment>
 
 </RelativeLayout>
