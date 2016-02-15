@@ -13,19 +13,19 @@
 
 La aplicación PuntoGPSQR es una aplicación sencilla que hace uso de la cárama, reconocimiento de QRs y el GPS.
 
-[snapshot - inicio app](snapshot/snapshot1.png)
+![snapshot - inicio app](snapshot/snapshot1.png)
 
-Primeramente, el usuario deberá echarle una foto a un QR que disponga de una latitud y una longitud de una localización.
+Primeramente, el usuario deberá sacarle una foto a un QR que disponga de una latitud y una longitud de una localización.
 
-[snapshot - fotoQR](snapshot/snapshot2.png)
+![snapshot - fotoQR](snapshot/snapshot2.png)
 
 Si el QR dispone de tal información, se procesará automaticámente y se lanzará *Google Navigation* para realización una navegación GPS hacia el punto que indicaba el QR.
 
-[snapshot - googleNavigation](snapshot/snapshot3.png)
+![snapshot - googleNavigation](snapshot/snapshot3.png)
 
 Además, mientras se muestra indicaciones para relizar el recorrido, se va guardando periódicamente la localización del usuario. Así, cuando el recorrido termina, se muestra en un mapa el recorrido realizado por el usuario.
 
-[snapshot - mapa con el recorrido del usuario](snapshot/snapshot4.png)
+![snapshot - mapa con el recorrido del usuario](snapshot/snapshot4.png)
 
 
 ## Implementación
@@ -46,6 +46,8 @@ El detector de QR que hemos usado es el que proporciona la API de *MobileVision*
 Este detector lo inicializamos en *onCreate()* mediate un objeto *BarcodeDetector*. Así, volviendo a *onActivityResult()*, creamos un *Frame* asociado a la foto y le pasamos el *Frame* al detector QR usando la función *detect()*. Esta función devuelve un *SparseArray<Barcode>* y la primera componente de dicho array es el mensaje obtenido del QR. Obtenido el mensaje, lo validamos usando *validarMensaje()*, esto es, comprobamos que el mensaje embebido en el QR es de la forma `LATITUD_<lat>_LONGITUD_<lng>`. En caso afirmativo iniciamos *NavegacionActivity* mediante un intent para empezar la navegación GPS y la toma de datos mediante el GPS.
 
 ### NavegacionActivity
+
+
 
 ### LocalizacionService
 
