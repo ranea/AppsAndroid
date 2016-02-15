@@ -13,19 +13,19 @@
 
 La aplicación PuntoGPSQR es una aplicación sencilla que hace uso de la cárama, reconocimiento de QRs y el GPS.
 
-[snapshot - inicio app]
+[snapshot - inicio app](snapshot/snapshot1.png)
 
 Primeramente, el usuario deberá echarle una foto a un QR que disponga de una latitud y una longitud de una localización.
 
-[snapshot - fotoQR]
+[snapshot - fotoQR](snapshot/snapshot2.png)
 
 Si el QR dispone de tal información, se procesará automaticámente y se lanzará *Google Navigation* para realización una navegación GPS hacia el punto que indicaba el QR.
 
-[snapshot - googleNavigation]
+[snapshot - googleNavigation](snapshot/snapshot3.png)
 
 Además, mientras se muestra indicaciones para relizar el recorrido, se va guardando periódicamente la localización del usuario. Así, cuando el recorrido termina, se muestra en un mapa el recorrido realizado por el usuario.
 
-[snapshot - mapa con el recorrido del usuario]
+[snapshot - mapa con el recorrido del usuario](snapshot/snapshot4.png)
 
 
 ## Implementación
