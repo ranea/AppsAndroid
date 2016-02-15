@@ -14,10 +14,9 @@ Conjunto de aplicaciones Android de diversas funcionalidades.
  - [PuntoMovimientoSonido](PuntoMovimientoSonido)
  - [NPISaltitos](NPISaltitos)
 
-Capturas de pantalla de las aplicaciones.
+Capturas de pantalla de algunas aplicaciones.
 
 ![BrujulaVoz](BrujulaVoz/snapshot/snapshot3.png)
-![PuntoGPSQR](PuntoGPSQR/snapshot/snapshot1.png)
 ![PuntoGestosFoto](PuntoGestosFoto/snapshot/snapshot3.png)
 ![PuntoMovimientoSonido](PuntoMovimientoSonido/snapshot/snapshot1.png)
 
