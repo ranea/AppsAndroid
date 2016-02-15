@@ -47,10 +47,19 @@ Este detector lo inicializamos en *onCreate()* mediate un objeto *BarcodeDetecto
 
 ### NavegacionActivity
 
-
+Esta activity lanza, según las coordenadas que le llegan desde *MainActivity*, *Google Navigation* para llevarnos al punto deseado. También lanza el *LocalizacionService*, que es un servicio que toma datos de localización GPS cada 10 segundos y los va acumulando. Al volver de la navegación, con dichos puntos se dibuja una polilínea indicando la ruta tomada por el usuario en un objeto de tipo *GoogleMap*, que no es más que un mapa de *Google Maps*. 
 
 ### LocalizacionService
 
+Este servicio permite tomar datos de localización GPS cada 10 segundos, pasándoselo a la *NavegacionActivity* a través de un objeto *EventBus*.
+
+La localización se realiza a través de la API de *Google Play Services*, para la cual debemos crear el objeto *mGoogleApiClient* y conectarlo a los servicios de Google con *connect()*. Debemos crear la petición de localización, lo cual encapsulamos en *crearPeticionLocalizacion()* para ajustar sus parámetros. Por último, sólo debemos pedir localizaciones, eso se hace con *LocationServices.FusedLocationApi.requestLocationUpdates*.
+
+Al recibir una localización en *onLocationChanged* creamos el evento *EventoLocalizacion* que mandaremos a la activity a través del método *post()* de *EventBus*.
+
+### EventoLocalizacion
+
+Aquí se define el objeto que le vamos a pasar a nuestra *NavigationActivity*. Será un objeto con un *LatLng* para modelar la localización y un *String* que definirá la hora de la actualización.
 
 ## Bibliografía
 

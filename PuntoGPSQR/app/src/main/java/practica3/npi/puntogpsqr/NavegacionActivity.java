@@ -109,22 +109,21 @@ public class NavegacionActivity extends FragmentActivity  {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NAVIGATION_REQUEST_CODE) {
-                EventoLocalizacion actual;
-                ArrayList<LatLng> localizaciones = new ArrayList<>();
-                for (int i = 0; i < listaLocalizaciones.size(); i++) {
-                    actual = listaLocalizaciones.get(i);
-                    mapa.addMarker(new MarkerOptions().title("Punto " + Integer.toString(i) + " " + actual.tiempo).position(actual.localizacion));
-                    localizaciones.add(actual.localizacion);
-                }
+            stopService(LocService);
+            EventoLocalizacion actual;
+            ArrayList<LatLng> localizaciones = new ArrayList<>();
+            for (int i = 0; i < listaLocalizaciones.size(); i++) {
+                actual = listaLocalizaciones.get(i);
+                mapa.addMarker(new MarkerOptions().title("Punto " + Integer.toString(i) + " " + actual.tiempo).position(actual.localizacion));
+                localizaciones.add(actual.localizacion);
+            }
 
-                mapa.addPolyline(new PolylineOptions().addAll(localizaciones).color(Color.RED));
-                stopService(LocService);
+            mapa.addPolyline(new PolylineOptions().addAll(localizaciones).color(Color.RED));
+
         }
 
     }
 
-
-    // This method will be called when a MessageEvent is posted
 
     /**
      * Callback para la gestión de eventos recibidos.
@@ -134,7 +133,7 @@ public class NavegacionActivity extends FragmentActivity  {
     public void onEventoLocalizacion(EventoLocalizacion evento){
         listaLocalizaciones.add(evento);
         Log.w("NavegacionActivity", "Evento Recibido");
-        Toast.makeText(this, "Localizacion recibida: " + evento.localizacion.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Localizacion recibida: " + evento.localizacion.toString(), Toast.LENGTH_SHORT).show();
     }
 
 }
