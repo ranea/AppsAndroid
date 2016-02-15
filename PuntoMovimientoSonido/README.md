@@ -1,3 +1,5 @@
+![PuntoMovimientoSonido](app/src/main/res/mipmap-hdpi/ic_launcher.png)
+
 # PuntoMovimientoSonido
 
 ![gif](ejemplo.gif)

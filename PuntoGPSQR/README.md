@@ -1,3 +1,5 @@
+![PuntoGPSQR](app/src/main/res/mipmap-hdpi/ic_launcher.png)
+
 # Enlaces
 
 http://code.tutsplus.com/tutorials/reading-qr-codes-using-the-mobile-vision-api--cms-24680

@@ -1,3 +1,9 @@
+![BrujulaVoz](BrujulaVoz/app/src/main/res/mipmap-hdpi/ic_launcher.png)
+![PuntoGPSQR](PuntoGPSQR/app/src/main/res/mipmap-hdpi/ic_launcher.png)
+![PuntoGestosFoto](PuntoGestosFoto/app/src/main/res/mipmap-hdpi/ic_launcher.png)
+![PuntoMovimientoSonido](PuntoMovimientoSonido/app/src/main/res/mipmap-hdpi/ic_launcher.png)
+![NPISaltitos](NPISaltitos/app/src/main/res/mipmap-hdpi/ic_launcher.png)
+
 # Aplicaciones Android
 
 Conjunto de aplicaciones Android de diversas funcionalidades.

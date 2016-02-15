@@ -3,10 +3,10 @@
     package="practica3.npi.puntogpsqr">
 
     <uses-feature android:name="android.hardware.camera" />
-    <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
 
 
     <application
@@ -32,7 +32,6 @@
         </activity>
         <activity android:name=".NavegacionActivity"></activity>
 
-        <service android:name=".TimeService"/>
         <service
             android:name=".LocationService"
             android:label="LocationService" >

@@ -6,14 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import android.widget.TextView;
-
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import android.util.Log;
-
-
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,9 +23,7 @@ import android.graphics.Color;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.Subscribe;
-import org.w3c.dom.Text;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,7 +47,7 @@ public class NavegacionActivity extends FragmentActivity  {
         setContentView(R.layout.activity_navegacion);
 
         Intent intent = getIntent();
-        String mensaje = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String mensaje = intent.getStringExtra(MainActivity.EXTRA_MENSAJE);
 
         obtenerCoordenadas(mensaje);
 

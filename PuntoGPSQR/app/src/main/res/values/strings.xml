@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PuntoGPSQR</string>
+    <string name="ayuda_icono">Toca el icono de la cámara y toma una foto de un QR</string>
+    <string name="no_qr_encontrado">No se ha detectado ningún codigo QR en la imagen</string>
+    <string name="qr_incorrecto">"El QR no contiene ninguna localización"</string>
+    <string name="nueva_ruta">Nueva ruta</string>
 </resources>
