@@ -40,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // TODO QUITAR EN MODO NO DEBUG
+        Intent intent = new Intent(this, NavegacionActivity.class);
+        String x = "LATITUD_37.19678168548899_LONGITUD_-3.62465459523194 ";
+        intent.putExtra(EXTRA_MESSAGE, x);
+        startActivity(intent);
+
+        // TODO COMENTA LA SIGUIENTE LINEA SI QUIERES VOLVER AL MODO NO DEBUG
+        /*
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -86,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+         // TODO COMENTA LA SIGUIENTE LINEA SI QUIERES VOLVER AL MODO NO DEBUG
+        */
 
     }
 
