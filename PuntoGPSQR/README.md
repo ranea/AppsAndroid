@@ -2,13 +2,6 @@
 
 # PuntoGPSQR
 
-[gif]
-
-## TO DO
-
-* [ ] Añadir las snapshot y el gif (para ti, @analca3)
-* [ ] Corregir los niveles de markdown
-
 ## Descripción de la aplicación
 
 La aplicación PuntoGPSQR es una aplicación sencilla que hace uso de la cárama, reconocimiento de QRs y el GPS.
