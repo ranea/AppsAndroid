@@ -1,3 +1,7 @@
+![PuntoMovimientoSonido](app/src/main/res/mipmap-hdpi/ic_launcher.png)
+
+* [ ] AÑADIR licencia al sonidoooooooooo
+
 # PuntoMovimientoSonido
 
 ![gif](ejemplo.gif)
@@ -55,6 +59,8 @@ El objetivo en *onSensorChanged()* es conseguir la aceleración lineal del dispo
 
 
 ## Licencias externas
+
+El sonido utilizado al agitar el dispositivo, [Mario Coin Sound](http://www.orangefreesounds.com/mario-coin-sound/), tiene licencia Creative Common Attribution-NonCommercial 4.0 International License.
 
 Las imágenes utilizadas pertenece al conjunto de [Material icons](https://design.google.com/icons/) de Google. Disponen de licencia Creative Common Attribution 4.0 International License.
 

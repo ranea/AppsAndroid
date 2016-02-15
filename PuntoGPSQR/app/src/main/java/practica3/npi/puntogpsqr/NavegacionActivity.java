@@ -10,8 +10,6 @@ import android.support.v4.app.FragmentActivity;
 
 import android.util.Log;
 
-
-
 import org.greenrobot.eventbus.EventBus;
 
 
@@ -51,7 +49,7 @@ public class NavegacionActivity extends FragmentActivity  {
         setContentView(R.layout.activity_navegacion);
 
         Intent intent = getIntent();
-        String mensaje = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        String mensaje = intent.getStringExtra(MainActivity.EXTRA_MENSAJE);
 
         obtenerCoordenadas(mensaje);
 
