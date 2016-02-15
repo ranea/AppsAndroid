@@ -29,6 +29,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Activity que captura el QR.
+ */
+
 public class MainActivity extends AppCompatActivity {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     public final static String EXTRA_MESSAGE = "practica3.npi.puntogpsqr.MENSAJE";
