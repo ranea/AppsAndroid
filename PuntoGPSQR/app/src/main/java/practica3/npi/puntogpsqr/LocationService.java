@@ -20,29 +20,14 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.DateFormat;
 import java.util.Date;
 
 
 public class LocationService extends Service implements LocationListener, ConnectionCallbacks, OnConnectionFailedListener {
     private static final String TAG = LocationService.class.getSimpleName();
-
-    public static final String BROADCAST_ACTION = "practica3.npi.puntogpsqr.LOCATION_UPDATE";
-
-    // Milliseconds per second
-    private static final int MILLISECONDS_PER_SECOND = 1000;
-
-    // Update frequency in seconds
-    public static final int UPDATE_INTERVAL_IN_SECONDS = 60;
-
-    // Update frequency in milliseconds
-    private static final long UPDATE_INTERVAL = MILLISECONDS_PER_SECOND * UPDATE_INTERVAL_IN_SECONDS;
-
-    // The fastest update frequency, in seconds
-    private static final int FASTEST_INTERVAL_IN_SECONDS = 40;
-
-    // A fast frequency ceiling in milliseconds
-    private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND * FASTEST_INTERVAL_IN_SECONDS;
 
     private GoogleApiClient mGoogleApiClient;
     private Location mCurrentLocation;
@@ -55,7 +40,7 @@ public class LocationService extends Service implements LocationListener, Connec
     public void onCreate() {
         super.onCreate();
 
-        Log.d(TAG, "Location service created…");
+        Log.w(TAG, "Location service created…");
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -63,75 +48,49 @@ public class LocationService extends Service implements LocationListener, Connec
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
+            Log.w(TAG, "CREATED");
         }
 
-        if (mLocationRequest == null) {
-            createLocationRequest();
-        }
+
     }
 
     protected void createLocationRequest() {
+        Log.w(TAG, "Created Location Request");
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-//    // Unregister location listeners
-//    private void clearLocationData() {
-//        locationClient.disconnect();
-//
-//        if (locationClient.isConnected()) {
-//            locationClient.removeLocationUpdates(this);
-//        }
-//    }
-
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
 
-
-//    // When service destroyed we need to unbind location listeners
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//
-//        Log.d(TAG, "Location service destroyed…");
-//
-//        clearLocationData();
-//    }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "Calling command…");
-
+        Log.w(TAG, "Calling command…");
+        mGoogleApiClient.connect();
         return START_STICKY;
     }
 
     @Override
+    public void onDestroy() {
+        mGoogleApiClient.disconnect();
+        super.onDestroy();
+    }
+
+    @Override
     public void onConnected(Bundle bundle) {
-//        Log.d(TAG, "Location Callback. onConnected");
-//
-//        Location currentLocation = locationClient.getLastLocation();
-//
-//        // Create the LocationRequest object
-//        LocationRequest locationRequest = LocationRequest.create();
-//
-//        // Use high accuracy
-//        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-//
-//        // Set the update interval to 5 seconds
-//        locationRequest.setInterval(UPDATE_INTERVAL);
-//
-//        // Set the fastest update interval to 1 second
-//        locationRequest.setFastestInterval(FASTEST_INTERVAL);
-//
-//        locationClient.requestLocationUpdates(locationRequest, this);
-//
-//        onLocationChanged(currentLocation);
+        Log.w(TAG, "Location Callback. onConnected");
+
+        if (mLocationRequest == null) {
+            createLocationRequest();
+        }
+
 
         if (mRequestingLocationUpdates) {
+            Log.w(TAG,"Enabling location updates");
             LocationServices.FusedLocationApi.requestLocationUpdates(
                     mGoogleApiClient, mLocationRequest, this);
         }
@@ -144,18 +103,8 @@ public class LocationService extends Service implements LocationListener, Connec
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d(TAG, "onLocationChanged");
-        Log.d(TAG, "LOCATION: " + location.getLatitude() + ":" + location.getLongitude());
-//
-//        // Since location information updated, broadcast it
-//        Intent broadcast = new Intent();
-//
-//        // Set action so other parts of application can distinguish and use this information if needed
-//        broadcast.setAction(BROADCAST_ACTION);
-//        broadcast.putExtra("latitude", location.getLatitude());
-//        broadcast.putExtra("longitude", location.getLongitude());
-//
-//        sendBroadcast(broadcast);
+        Log.w(TAG, "onLocationChanged");
+        Log.w(TAG, "LOCATION: " + location.getLatitude() + ":" + location.getLongitude());
 
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
@@ -163,15 +112,13 @@ public class LocationService extends Service implements LocationListener, Connec
         LatLng loc = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
 
         EventoLocalizacion evento = new EventoLocalizacion(loc, mLastUpdateTime);
-    }
 
-//    @Override
-//    public void onDisconnected() {
-//        Log.d(TAG, "Location Callback. onDisconnected");
-//    }
+        EventBus.getDefault().post(evento);
+
+    }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d(TAG, "Location Callback. onConnectionFailed");
+        Log.w(TAG, "Location Callback. onConnectionFailed");
     }
 }
