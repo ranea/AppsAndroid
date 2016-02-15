@@ -17,6 +17,7 @@ Conjunto de aplicaciones Android de diversas funcionalidades.
 Capturas de pantalla de las aplicaciones.
 
 ![BrujulaVoz](BrujulaVoz/snapshot/snapshot3.png)
+![PuntoGPSQR](PuntoGPSQR/snapshot/snapshot1.png)
 ![PuntoGestosFoto](PuntoGestosFoto/snapshot/snapshot3.png)
 ![PuntoMovimientoSonido](PuntoMovimientoSonido/snapshot/snapshot1.png)
 
@@ -26,9 +27,7 @@ Común a todas las app
 
 * [ ] Pasar todos los String al fichero xml. (tb de los layout)
 * [ ] Añadir las snapshot y el gif.
-* [ ] Especificar el tema utilizado y el cambio de iconos
 * [x] Quitar enlaces.md
-* [ ] Corregir documentación del código
 * [x] Picar 5º app
 * [ ] Sacar del GitHub todos los tutorial.pdf, tutorial.md y los mytemplate.latex
 
