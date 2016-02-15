@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.graphics.Color;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.w3c.dom.Text;
@@ -273,10 +274,12 @@ public class NavegacionActivity extends FragmentActivity implements
     // This method will be called when a MessageEvent is posted
     @Subscribe
     public void onEventoLocalizacion(EventoLocalizacion evento){
+
+
         mListLocations.add(evento.localizacion);
 
         mLastUpdateTime = evento.tiempo;
-        //Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Localizacion recibida: " + evento.localizacion.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
