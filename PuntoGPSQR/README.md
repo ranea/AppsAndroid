@@ -47,7 +47,7 @@ Este detector lo inicializamos en *onCreate()* mediate un objeto *BarcodeDetecto
 
 ### NavegacionActivity
 
-Esta activity lanza, según las coordenadas que le llegan desde *MainActivity*, *Google Navigation* para llevarnos al punto deseado. También lanza el *LocalizacionService*, que es un servicio que toma datos de localización GPS cada 10 segundos y los va acumulando. Al volver de la navegación, con dichos puntos se dibuja una polilínea indicando la ruta tomada por el usuario en un objeto de tipo *GoogleMap*, que no es más que un mapa de *Google Maps*. 
+Esta activity lanza, según las coordenadas que le llegan desde *MainActivity*, *Google Navigation* para llevarnos al punto deseado. También lanza el *LocalizacionService*, que es un servicio que toma datos de localización GPS cada 10 segundos y los va acumulando. Al volver de la navegación, con dichos puntos se dibuja una polilínea indicando la ruta tomada por el usuario en un objeto de tipo *GoogleMap*, que no es más que un mapa de *Google Maps*.
 
 ### LocalizacionService
 
@@ -78,6 +78,11 @@ Aquí se define el objeto que le vamos a pasar a nuestra *NavigationActivity*. S
 
 [Uso de la app de la cámara II](http://developer.android.com/intl/es/guide/topics/media/camera.html#intent-receive)
 
+### Localización
+
+[Guía para tener localización en tu app](http://developer.android.com/intl/es/training/location/index.html)
+
+[Google Maps en Android](https://developers.google.com/maps/documentation/android-api/map)
 
 ## Licencias externas
 
