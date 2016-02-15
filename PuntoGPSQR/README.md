@@ -84,6 +84,10 @@ Aquí se define el objeto que le vamos a pasar a nuestra *NavigationActivity*. S
 
 [Google Maps en Android](https://developers.google.com/maps/documentation/android-api/map)
 
+[Servicios en Android](http://developer.android.com/intl/es/guide/components/services.html)
+
+[EventBus](http://greenrobot.org/eventbus/)
+
 ## Licencias externas
 
 Las imágenes utilizadas pertenece al conjunto de [Material icons](https://design.google.com/icons/) de Google. Disponen de licencia Creative Common Attribution 4.0 International License.
