@@ -28,14 +28,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Activity que lleva el dibujado de los puntos por donde se va pasando.
+ */
 public class NavegacionActivity extends FragmentActivity  {
-    // TODO change name
     private static final int NAVIGATION_REQUEST_CODE = 100;
 
     private double latitud, longitud;
 
     private GoogleMap mapa;
-    private ArrayList<EventoLocalizacion> mListLocations;
+    private ArrayList<EventoLocalizacion> listaLocalizaciones;
 
 
     private Intent mapIntent = new Intent(); //Intent que lanza la aplicación de GPS
@@ -51,23 +53,32 @@ public class NavegacionActivity extends FragmentActivity  {
 
         obtenerCoordenadas(mensaje);
 
+        // Registramos en el bus de comunicaciones
         EventBus.getDefault().register(this);
-        LocService = new Intent(this, LocationService.class);
+
+        // Lanzamos el servicio de localización
+        LocService = new Intent(this, ServicioLocalizacion.class);
         startService(LocService);
 
+        // Obtenemos el mapa desde el layout
         mapa = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapa)).getMap();
-        mListLocations = new ArrayList<>();
+        listaLocalizaciones = new ArrayList<>();
 
-        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + Double.toString(latitud) + "," + Double.toString(longitud) + "&mode=w");
+        // Uri para llamar a la navegación de google maps hacia las coordenadas indicadas
+        Uri uriNavegacion = Uri.parse("google.navigation:q=" + Double.toString(latitud) + "," + Double.toString(longitud) + "&mode=w");
 
-        //Lanzamos Google Maps con dicha petición
-        mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        // Lanzamos Google Maps con la petición de navegación
+        mapIntent = new Intent(Intent.ACTION_VIEW, uriNavegacion);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivityForResult(mapIntent,NAVIGATION_REQUEST_CODE);
 
 
     }
 
+    /**
+     * Obtener coordenadas desde un string del QR
+     * @param textoCoordenadas Texto desde QR
+     */
     public void obtenerCoordenadas(String textoCoordenadas) {
         textoCoordenadas = textoCoordenadas.replace("LATITUD_", "");
         textoCoordenadas = textoCoordenadas.replace("_LONGITUD_", " ");
@@ -100,8 +111,8 @@ public class NavegacionActivity extends FragmentActivity  {
         if (requestCode == NAVIGATION_REQUEST_CODE) {
                 EventoLocalizacion actual;
                 ArrayList<LatLng> localizaciones = new ArrayList<>();
-                for (int i = 0; i < mListLocations.size(); i++) {
-                    actual = mListLocations.get(i);
+                for (int i = 0; i < listaLocalizaciones.size(); i++) {
+                    actual = listaLocalizaciones.get(i);
                     mapa.addMarker(new MarkerOptions().title("Punto " + Integer.toString(i) + " " + actual.tiempo).position(actual.localizacion));
                     localizaciones.add(actual.localizacion);
                 }
@@ -112,17 +123,16 @@ public class NavegacionActivity extends FragmentActivity  {
 
     }
 
-    private String getDateTime() {
-        // get date time in custom format
-        SimpleDateFormat sdf = new SimpleDateFormat("[yyyy/MM/dd - HH:mm:ss]");
-        return sdf.format(new Date());
-    }
-
 
     // This method will be called when a MessageEvent is posted
+
+    /**
+     * Callback para la gestión de eventos recibidos.
+     * @param evento Evento recibido
+     */
     @Subscribe
     public void onEventoLocalizacion(EventoLocalizacion evento){
-        mListLocations.add(evento);
+        listaLocalizaciones.add(evento);
         Log.w("NavegacionActivity", "Evento Recibido");
         Toast.makeText(this, "Localizacion recibida: " + evento.localizacion.toString(), Toast.LENGTH_SHORT).show();
     }

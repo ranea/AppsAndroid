@@ -25,8 +25,8 @@
         <activity android:name=".NavegacionActivity"></activity>
 
         <service
-            android:name=".LocationService"
-            android:label="LocationService" >
+            android:name=".ServicioLocalizacion"
+            android:label="ServicioLocalizacion" >
         </service>
 
         <meta-data

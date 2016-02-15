@@ -1,5 +1,9 @@
 package practica3.npi.puntogpsqr;
 
+/**
+ * Created by Antonio on 15/02/2016.
+ */
+
 import android.app.Service;
 import android.content.Intent;
 import android.location.Location;
@@ -22,15 +26,15 @@ import java.text.DateFormat;
 import java.util.Date;
 
 
-public class LocationService extends Service implements LocationListener, ConnectionCallbacks, OnConnectionFailedListener {
-    private static final String TAG = LocationService.class.getSimpleName();
+public class ServicioLocalizacion extends Service implements LocationListener, ConnectionCallbacks, OnConnectionFailedListener {
+    private static final String TAG = ServicioLocalizacion.class.getSimpleName();
 
     private GoogleApiClient mGoogleApiClient;
-    private Location mCurrentLocation;
-    private LocationRequest mLocationRequest;
-    private String mLastUpdateTime;
+    private Location localizacionActual;
+    private LocationRequest peticionLocalizacion;
+    private String ultimaActualizacion;
 
-    private boolean mRequestingLocationUpdates = true;
+    private boolean pidiendoDatos = true;
 
     @Override
     public void onCreate() {
@@ -50,12 +54,15 @@ public class LocationService extends Service implements LocationListener, Connec
 
     }
 
-    protected void createLocationRequest() {
+    /**
+     * Crear petición de localización de los servicios de Google.
+     */
+    protected void crearPeticionLocalizacion() {
         Log.w(TAG, "Created Location Request");
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        peticionLocalizacion = new LocationRequest();
+        peticionLocalizacion.setInterval(10000);
+        peticionLocalizacion.setFastestInterval(5000);
+        peticionLocalizacion.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
     @Override
@@ -80,15 +87,15 @@ public class LocationService extends Service implements LocationListener, Connec
     public void onConnected(Bundle bundle) {
         Log.w(TAG, "Location Callback. onConnected");
 
-        if (mLocationRequest == null) {
-            createLocationRequest();
+        if (peticionLocalizacion == null) {
+            crearPeticionLocalizacion();
         }
 
 
-        if (mRequestingLocationUpdates) {
+        if (pidiendoDatos) {
             Log.w(TAG,"Enabling location updates");
             LocationServices.FusedLocationApi.requestLocationUpdates(
-                    mGoogleApiClient, mLocationRequest, this);
+                    mGoogleApiClient, peticionLocalizacion, this);
         }
     }
 
@@ -102,12 +109,12 @@ public class LocationService extends Service implements LocationListener, Connec
         Log.w(TAG, "onLocationChanged");
         Log.w(TAG, "LOCATION: " + location.getLatitude() + ":" + location.getLongitude());
 
-        mCurrentLocation = location;
-        mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+        localizacionActual = location;
+        ultimaActualizacion = DateFormat.getTimeInstance().format(new Date());
 
-        LatLng loc = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+        LatLng loc = new LatLng(localizacionActual.getLatitude(), localizacionActual.getLongitude());
 
-        EventoLocalizacion evento = new EventoLocalizacion(loc, mLastUpdateTime);
+        EventoLocalizacion evento = new EventoLocalizacion(loc, ultimaActualizacion);
 
         EventBus.getDefault().post(evento);
 
