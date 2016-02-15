@@ -44,18 +44,18 @@ Luego están las funciones de manejo de los saltos. Al cambiar los valores del s
 
 Este fragment es simple: muestra un contador en la pantalla.
 
-## FragmentOpciones
+### FragmentOpciones
 
 Este fragment sólo muestra un botón grande para reiniciar el contador a 0.
 
-## Paginador
+### Paginador
 
 Esta clase se usa para organizar los fragments usando un FragmentPagerAdapter. Se usa esta estructura por dificultad para usar la más actualizada del SDK de Android.
 
 ## Bibliografía
 
 
-### Enlaces
+## Enlaces
 
 [Sensors Motion](http://developer.android.com/intl/es/guide/topics/sensors/sensors_motion.html)
 
