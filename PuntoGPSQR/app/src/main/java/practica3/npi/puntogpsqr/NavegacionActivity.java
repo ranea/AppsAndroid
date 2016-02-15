@@ -24,6 +24,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +35,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.graphics.Color;
 
+import org.greenrobot.eventbus.Subscribe;
 import org.w3c.dom.Text;
 
 import java.text.DateFormat;
@@ -53,7 +56,7 @@ public class NavegacionActivity extends FragmentActivity implements
     private double latitud, longitud;
 
     private GoogleMap mapa;
-    private ArrayList<Location> mListLocations;
+    private ArrayList<LatLng> mListLocations;
 
     private boolean mRequestingLocationUpdates = true;
 
@@ -68,19 +71,19 @@ public class NavegacionActivity extends FragmentActivity implements
         String mensaje = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
         obtenerCoordenadas(mensaje);
-
-        // Create an instance of GoogleAPIClient.
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-
-        if (mLocationRequest == null) {
-            createLocationRequest();
-        }
+//
+//        // Create an instance of GoogleAPIClient.
+//        if (mGoogleApiClient == null) {
+//            mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                    .addConnectionCallbacks(this)
+//                    .addOnConnectionFailedListener(this)
+//                    .addApi(LocationServices.API)
+//                    .build();
+//        }
+//
+//        if (mLocationRequest == null) {
+//            createLocationRequest();
+//        }
 
         mapa = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapa)).getMap();
         mListLocations = new ArrayList<>();
@@ -170,12 +173,14 @@ public class NavegacionActivity extends FragmentActivity implements
     @Override
     protected void onStart() {
         mGoogleApiClient.connect();
+        EventBus.getDefault().register(this);
         super.onStart();
     }
 
     @Override
     protected void onStop() {
         mGoogleApiClient.disconnect();
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -195,6 +200,13 @@ public class NavegacionActivity extends FragmentActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LatLng actual;
+        for (int i = 0; i < mListLocations.size(); i++){
+            actual = mListLocations.get(i);
+            mapa.addMarker(new MarkerOptions().title("Punto " + Integer.toString(i)).position(actual));
+        }
+
+        mapa.addPolyline(new PolylineOptions().addAll(mListLocations).color(Color.RED));
 
     }
 
@@ -212,13 +224,13 @@ public class NavegacionActivity extends FragmentActivity implements
         return sdf.format(new Date());
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        mCurrentLocation = location;
-        mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        mListLocations.add(mCurrentLocation);
-        updateUI();
-    }
+//    @Override
+//    public void onLocationChanged(Location location) {
+//        mCurrentLocation = location;
+//        mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+//        mListLocations.add(mCurrentLocation);
+//        updateUI();
+//    }
 
 //    @Override
 //    public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -234,23 +246,44 @@ public class NavegacionActivity extends FragmentActivity implements
 //    public void onProviderDisabled(String provider) {
 //
 //    }
+//
+//    public void updateUI() {
+//        if (mCurrentLocation != null) {
+//            Log.d("GPSQR", "Añadiendo localización");
+//            LatLng actual = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+//            mapa.addMarker(new MarkerOptions().title("Punto " + mListLocations.size()).position(actual));
+//
+//            if (mListLocations.size() >= 2){
+//                Location loc_anterior = mListLocations.get(mListLocations.size() - 2);
+//                LatLng anterior = new LatLng(loc_anterior.getLatitude(), loc_anterior.getLongitude() ); // Tomar el anterior, el actual es - 1
+//
+//                mapa.addPolyline(new PolylineOptions().add(anterior, actual)
+//                        .width(10)
+//                        .color(Color.RED));
+//            }
+//        }
+//        else
+//            Log.d("GPSQR", "No hay localización!");
+//    }
 
-    public void updateUI() {
-        if (mCurrentLocation != null) {
-            Log.d("GPSQR", "Añadiendo localización");
-            LatLng actual = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-            mapa.addMarker(new MarkerOptions().title("Punto " + mListLocations.size()).position(actual));
+    // This method will be called when a MessageEvent is posted
+    @Subscribe
+    public void onEventoLocalizacion(EventoLocalizacion evento){
+        mListLocations.add(evento.localizacion);
 
-            if (mListLocations.size() >= 2){
-                Location loc_anterior = mListLocations.get(mListLocations.size() - 2);
-                LatLng anterior = new LatLng(loc_anterior.getLatitude(), loc_anterior.getLongitude() ); // Tomar el anterior, el actual es - 1
-
-                mapa.addPolyline(new PolylineOptions().add(anterior, actual)
-                        .width(10)
-                        .color(Color.RED));
-            }
-        }
-        else
-            Log.d("GPSQR", "No hay localización!");
+        mLastUpdateTime = evento.tiempo;
+        //Toast.makeText(getActivity(), event.message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+//    // This method will be called when a SomeOtherEvent is posted
+//    @Subscribe
+//    public void onEvent(SomeOtherEvent event){
+//        //doSomethingWith(event);
+//    }
+
 }
