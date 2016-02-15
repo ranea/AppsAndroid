@@ -30,4 +30,5 @@ Común a todas las app
 * [x] Quitar enlaces.md
 * [ ] Corregir documentación del código
 * [x] Picar 5º app
+* [ ] Sacar del GitHub todos los tutorial.pdf, tutorial.md y los mytemplate.latex
 

@@ -1,8 +1,8 @@
 ![BrujulaVoz](app/src/main/res/mipmap-hdpi/ic_launcher.png)
 
-# BrujulaVoz
-
 ![gif](ejemplo.gif)
+
+# BrujulaVoz
 
 ## Descripción de la aplicación
 
