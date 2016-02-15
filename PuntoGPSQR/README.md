@@ -28,6 +28,9 @@ La primera parte de la aplicación es la correspondiente a la actividad *MainAct
 
 Adri
 
+### NavegacionActivity
+
+### LocalizacionService
 
 
 ## Bibliografía
