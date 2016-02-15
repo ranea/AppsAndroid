@@ -2,12 +2,6 @@
 
 # NPISaltitos
 
-[gif]
-
-## TO DO
-
-* [ ] Añadir las snapshot y el gif (para ti, @analca3)
-* [ ] Corregir los niveles de markdown
 
 ## Descripción de la aplicación
 
@@ -51,9 +45,6 @@ Este fragment sólo muestra un botón grande para reiniciar el contador a 0.
 ### Paginador
 
 Esta clase se usa para organizar los fragments usando un FragmentPagerAdapter. Se usa esta estructura por dificultad para usar la más actualizada del SDK de Android.
-
-## Bibliografía
-
 
 ## Enlaces
 
