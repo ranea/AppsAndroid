@@ -56,7 +56,7 @@ Este detector lo inicializamos en *onCreate()* mediate un objeto *BarcodeDetecto
 
 [Detección de QR con la API de Mobile Vision](https://search-codelabs.appspot.com/codelabs/bar-codes#1)
 
-[Información sobre Mobile Vision APi](https://developers.google.com/vision/introduction)
+[Información sobre Mobile Vision API](https://developers.google.com/vision/introduction)
 
 [SparseIntArray](http://developer.android.com/intl/es/reference/android/util/SparseIntArray.html)
 
