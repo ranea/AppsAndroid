@@ -6,7 +6,8 @@
 
 ## TO DO
 
-* [ ] Añadir las snapshot y el gif.
+* [ ] Añadir las snapshot y el gif (para ti, @analca3)
+* [ ] Corregir los niveles de markdown
 
 ## Descripción de la aplicación
 
@@ -65,9 +66,10 @@ Esta clase se usa para organizar los fragments usando un FragmentPagerAdapter. S
 [Vibrator](http://developer.android.com/intl/es/reference/android/os/Vibrator.html)
 
 
-Idea y estructura de paginador
-[JumpingJack](https://github.com/googlesamples/android-JumpingJack)
-
 ## Licencias externas
 
-El ejemplo JumpingJack tiene licencia [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+La idea de la aplicación y la estructura del paginador la hemos obtenido de [JumpingJack](https://github.com/googlesamples/android-JumpingJack), que tiene licencia [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+Las imágenes utilizadas pertenece al conjunto de [Material icons](https://design.google.com/icons/) de Google. Disponen de licencia Creative Common Attribution 4.0 International License.
+
+Para crear los iconos de la aplicación en el launcher, se ha utilizado la herramienta [Launcher Icon Generator](https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html) de Roman Nurik, con licencia Apache.
