@@ -52,7 +52,7 @@ Este detector lo inicializamos en *onCreate()* mediate un objeto *BarcodeDetecto
 
 ## Bibliografía
 
-### BarcodeDetector
+### Detección del QR
 
 [Detección de QR con la API de Mobile Vision](https://search-codelabs.appspot.com/codelabs/bar-codes#1)
 
