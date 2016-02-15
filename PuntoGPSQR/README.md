@@ -44,7 +44,7 @@ Esta activity lanza, según las coordenadas que le llegan desde *MainActivity*, 
 
 ### LocalizacionService
 
-Este servicio permite tomar datos de localización GPS cada 10 segundos, pasándoselo a la *NavegacionActivity* a través de un objeto *EventBus*.
+Este servicio permite tomar datos de localización GPS cada 10 segundos, pasándoselo a la *NavegacionActivity* a través de un objeto *EventBus*. *EventBus* es una librería externa que permite comunicar, entre otras cosas, una *Activity* con un *Service* de forma directa y fácil, en nuestro caso *NavegacionActivity* con *LocalizacionService*.
 
 La localización se realiza a través de la API de *Google Play Services*, para la cual debemos crear el objeto *mGoogleApiClient* y conectarlo a los servicios de Google con *connect()*. Debemos crear la petición de localización, lo cual encapsulamos en *crearPeticionLocalizacion()* para ajustar sus parámetros. Por último, sólo debemos pedir localizaciones, eso se hace con *LocationServices.FusedLocationApi.requestLocationUpdates*.
 
@@ -82,6 +82,8 @@ Aquí se define el objeto que le vamos a pasar a nuestra *NavigationActivity*. S
 [EventBus](http://greenrobot.org/eventbus/)
 
 ## Licencias externas
+
+La librería [EventBus](http://greenrobot.org/eventbus/) tiene licencia Apache 2.0.
 
 Las imágenes utilizadas pertenece al conjunto de [Material icons](https://design.google.com/icons/) de Google. Disponen de licencia Creative Common Attribution 4.0 International License.
 
