@@ -10,18 +10,13 @@ La aplicación NPISaltitos es una aplicación sencilla para Android que hace uso
 El usuario sólo debe colocarse el reloj en la muñeca y saltar uniendo los brazos encima de la cabeza.
 Este ejercicio se conoce como *jumping jack*.
 
-[alguna imagen o gif]
-
 Por cada movimiento completo se va incrementando un contador en la pantalla del reloj. Desplazándote hacia la derecha se llega a otra pantalla
 en la que se puede resetear el contador.
-
-[snapshots donde se vean los fragments]
 
 
 ## Implementación
 
 *Nota*: todo el código esta bastante documentado. La siguiente explicación es una breve descripción a muy alto nivel de como se ha implementado la aplicación.
-
 
 La primera parte de la aplicación es la correspondiente a la actividad *MainActivity*.
 
