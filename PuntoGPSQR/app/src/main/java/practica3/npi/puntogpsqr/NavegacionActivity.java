@@ -13,6 +13,7 @@ import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
 
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -119,6 +120,8 @@ public class NavegacionActivity extends FragmentActivity  {
             }
 
             mapa.addPolyline(new PolylineOptions().addAll(localizaciones).color(Color.RED));
+
+            mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(localizaciones.get(localizaciones.size() - 1), 15));
 
         }
 

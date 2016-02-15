@@ -1,160 +1,110 @@
 package practica3.npi.puntogpsqr;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity {
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    public final static String EXTRA_MESSAGE = "practica3.npi.puntogpsqr.MENSAJE";
-    private Uri fileUri;
-    private Bitmap myBitmap;
+public class MainActivity extends Activity {
+    private static final int CODIGO_SOLICITUD_TOMAR_IMAGEN = 1;
+    public final static String EXTRA_MENSAJE = "practica3.npi.puntogpsqr.MENSAJE";
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private BarcodeDetector detectorQR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Iniciamos el detector de QR
+        detectorQR =
+                new BarcodeDetector.Builder(getApplicationContext())
+                        .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                        .build();
+        if (!detectorQR.isOperational()) {
+            Log.w(TAG, "No se ha podido crear el detector");
+            return;
+        }
 
-        // TODO QUITAR EN MODO NO DEBUG
-        Intent intent = new Intent(this, NavegacionActivity.class);
-        String x = "LATITUD_37.19678168548899_LONGITUD_-3.62465459523194 ";
-        intent.putExtra(EXTRA_MESSAGE, x);
-        startActivity(intent);
-
-        // TODO COMENTA LA SIGUIENTE LINEA SI QUIERES VOLVER AL MODO NO DEBUG
-        /*
-        // create Intent to take a picture and return control to the calling application
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-        //intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-
-        // start the image capture Intent
-        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-
-        Button btn = (Button) findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
+        ImageView iconoCamara = (ImageView) findViewById(R.id.iconoCamara);
+        iconoCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageView myImageView = (ImageView) findViewById(R.id.imgview);
-                //Bitmap myBitmap = BitmapFactory.decodeResource(
-                //        getApplicationContext().getResources(),
-                //        R.drawable.puppy);
-                myImageView.setImageBitmap(myBitmap);
-
-                TextView txtView = (TextView) findViewById(R.id.txtContent);
-                BarcodeDetector detector =
-                        new BarcodeDetector.Builder(getApplicationContext())
-                                .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
-                                .build();
-                if (!detector.isOperational()) {
-                    txtView.setText("Could not set up the detector!");
-                    return;
-                }
-
-                Frame frame = new Frame.Builder().setBitmap(myBitmap).build();
-                SparseArray<Barcode> barcodes = detector.detect(frame);
-                // TODO detectar si se ha leido un barcodeee
-
-
-                Barcode thisCode = barcodes.valueAt(0);
-                txtView.setText(thisCode.rawValue);
-
-                Toast.makeText(MainActivity.this, thisCode.rawValue, Toast.LENGTH_LONG).show();
-                // TODO si no son coordenadas validas, REPETIR
-
-                // http://stackoverflow.com/questions/19464100/starting-intent-from-onclicklistener
-                Intent intent = new Intent(v.getContext(), NavegacionActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, thisCode.rawValue);
-                startActivity(intent);
+                tomarFoto();
             }
         });
-         // TODO COMENTA LA SIGUIENTE LINEA SI QUIERES VOLVER AL MODO NO DEBUG
-        */
 
     }
 
-/*
-    public static final int MEDIA_TYPE_IMAGE = 1;
-    public static final int MEDIA_TYPE_VIDEO = 2;
-
-    *//** Create a file Uri for saving an image or video *//*
-    private static Uri getOutputMediaFileUri(int type){
-        return Uri.fromFile(getOutputMediaFile(type));
+    // Crea un intent para tomar una foto y devuelve el control a esta Activity
+    protected void tomarFoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CODIGO_SOLICITUD_TOMAR_IMAGEN);
     }
 
-    *//** Create a File for saving an image or video *//*
-    private static File getOutputMediaFile(int type){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
 
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "MyCameraApp");
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-
-        // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
-                Log.d("MyCameraApp", "failed to create directory");
-                return null;
-            }
-        }
-
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile;
-        if (type == MEDIA_TYPE_IMAGE){
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_"+ timeStamp + ".jpg");
-        } else if(type == MEDIA_TYPE_VIDEO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "VID_"+ timeStamp + ".mp4");
-        } else {
-            return null;
-        }
-
-        return mediaFile;
-    }*/
-
+    // Maneja los resultados de la Activity del reconocimiento de voz.
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                // Image captured and saved to fileUri specified in the Intent
-//                Toast.makeText(this, "Image saved to:\n" + data.getData(), Toast.LENGTH_LONG).show();
-                myBitmap = (Bitmap) data.getExtras().get("data");
-            } else if (resultCode == RESULT_CANCELED) {
-                // User cancelled the image capture
+    protected void onActivityResult(int codigoSolicitud, int codigoResultado, Intent datos) {
+        if (codigoSolicitud == CODIGO_SOLICITUD_TOMAR_IMAGEN) {
+            if (codigoResultado == RESULT_OK) {
+                // Guardamos la foto en un objeto Bitmap
+                Bitmap foto = (Bitmap) datos.getExtras().get("data");
+
+                // Le pasamos el detector de QR
+                Frame frame = new Frame.Builder().setBitmap(foto).build();
+                SparseArray<Barcode> barcodes = detectorQR.detect(frame);
+
+                if (barcodes.size() == 0){
+                    // No detectó QR
+                    Toast.makeText(MainActivity.this, getString(R.string.no_qr_encontrado), Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Barcode codigoQR = barcodes.valueAt(0);
+                    Toast.makeText(MainActivity.this, codigoQR.rawValue, Toast.LENGTH_LONG).show();
+
+                    if(validarMensaje(codigoQR.rawValue)){
+                        Intent intent = new Intent(this, NavegacionActivity.class);
+                        intent.putExtra(EXTRA_MENSAJE, codigoQR.rawValue);
+                        startActivity(intent);
+                    }
+                    else{
+                        // No detectó la latitud y la longitud en el mensaje
+                        Toast.makeText(MainActivity.this, getString(R.string.qr_incorrecto), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+
+            } else if (codigoResultado == RESULT_CANCELED) {
+                // Usuario canceló la imagen
             } else {
-                // Image capture failed, advise user
+                // Captura de imagen fallida
             }
         }
+    }
+
+    // Comprueba que el contenido del mensaje es de la forma "LATITUD_<lat>_LONGITUD_<lng>"
+    // donde lat y lng son números
+    protected boolean validarMensaje(String mensaje){
+        // Usamos una expresión regular para validar el mensaje.
+        // Para usar una expreg en Java basta con crear un objeto pattern
+        // pasandole un String con la expreg y después llamar a matcher() y find()
+        String patron = "LATITUD_-?\\d+\\.\\d+_LONGITUD_-?\\d+\\.\\d+";
+        Pattern p = Pattern.compile(patron);
+        Matcher m = p.matcher(mensaje);
+        return m.matches();
     }
 }
