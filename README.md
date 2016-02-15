@@ -1,18 +1,18 @@
-![BrujulaVoz](BrujulaVoz/app/src/main/res/mipmap-hdpi/ic_launcher.png)
-![PuntoGPSQR](PuntoGPSQR/app/src/main/res/mipmap-hdpi/ic_launcher.png)
-![PuntoGestosFoto](PuntoGestosFoto/app/src/main/res/mipmap-hdpi/ic_launcher.png)
-![PuntoMovimientoSonido](PuntoMovimientoSonido/app/src/main/res/mipmap-hdpi/ic_launcher.png)
-![NPISaltitos](NPISaltitos/app/src/main/res/mipmap-hdpi/ic_launcher.png)
+[![BrujulaVoz](BrujulaVoz/app/src/main/res/mipmap-hdpi/ic_launcher.png)](BrujulaVoz)
+[![PuntoGPSQR](PuntoGPSQR/app/src/main/res/mipmap-hdpi/ic_launcher.png)](PuntoGPSQR)
+[![PuntoGestosFoto](PuntoGestosFoto/app/src/main/res/mipmap-hdpi/ic_launcher.png)](PuntoGestosFoto)
+[![PuntoMovimientoSonido](PuntoMovimientoSonido/app/src/main/res/mipmap-hdpi/ic_launcher.png)](PuntoMovimientoSonido)
+[![NPISaltitos](NPISaltitos/app/src/main/res/mipmap-hdpi/ic_launcher.png)](NPISaltitos)
 
 # Aplicaciones Android
 
 Conjunto de aplicaciones Android de diversas funcionalidades.
 
- - [BrujulaVoz](https://github.com/ranea/AppsAndroid/tree/master/BrujulaVoz)
- - [PuntoGPSQR](https://github.com/ranea/AppsAndroid/tree/master/PuntoGPSQR)
- - [PuntoGestosFoto](https://github.com/ranea/AppsAndroid/tree/master/PuntoGestosFoto)
- - [PuntoMovimientoSonido](https://github.com/ranea/AppsAndroid/tree/master/PuntoMovimientoSonido)
- - [NPISaltitos](https://github.com/ranea/AppsAndroid/tree/master/NPISaltitos)
+ - [BrujulaVoz](BrujulaVoz)
+ - [PuntoGPSQR](PuntoGPSQR)
+ - [PuntoGestosFoto](PuntoGestosFoto)
+ - [PuntoMovimientoSonido](PuntoMovimientoSonido)
+ - [NPISaltitos](NPISaltitos)
 
 Capturas de pantalla de las aplicaciones.
 
