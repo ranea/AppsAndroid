@@ -1,5 +1,7 @@
 ![PuntoMovimientoSonido](app/src/main/res/mipmap-hdpi/ic_launcher.png)
 
+* [ ] AÑADIR licencia al sonidoooooooooo
+
 # PuntoMovimientoSonido
 
 ![gif](ejemplo.gif)
